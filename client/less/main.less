@@ -1,0 +1,25 @@
+@screen-width-small: 768px;
+@screen-width-medium: 992px;
+@screen-width-large: 1200px;
+
+@screen-width-small-min: (@screen-width-small - 1);
+@screen-width-medium-min: (@screen-width-medium - 1);
+@screen-width-large-min: (@screen-width-large - 1);
+
+
+.get-backlinks-button-wrapper {
+	padding-top: 10px;
+	.get-backlinks-button {
+		width: 30%;
+		@media(max-width: @screen-width-small-min){
+			width: 100%;
+		}
+	}
+}
+.input-options {
+	label {
+		@media(max-width: @screen-width-medium-min){
+			font-size: 12px;
+		}
+	}
+}
