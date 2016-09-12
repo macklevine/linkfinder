@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('./config');
+var config = require('./config/config');
 var resourceRouterFactory = require('./routeconfigurators/resourcerouterfactory');
 
 var express = require('express');
