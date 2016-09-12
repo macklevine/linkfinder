@@ -17,5 +17,5 @@ resourceRouterFactory.addResourceRoutes(app);
 
 server = http.createServer(app);
 server.listen(config.port, function(){
-	console.log('lead exporter listening on port ' + config.port);
+	console.log('link finder backend listening on port ' + config.port);
 });

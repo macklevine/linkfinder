@@ -52,7 +52,7 @@ GetLinksService.prototype.executeQuery = function executeQuery(query){
 var _validateOptions = function _validateOptions(options){
 	var valid = true;
 	var validOptions = {
-		"ref_domain_topical_trust_flow_value" : "number",
+		"ref_domain_topical_trust_flow_value" : "string",
 		"source_url" : "string",
 		"target_url" : "string"
 	};
