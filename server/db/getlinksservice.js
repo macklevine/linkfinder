@@ -15,8 +15,6 @@ var _formatConditionWithValue = function _formatConditionWithValue(condition, va
 	return util.format(queries[condition], value)
 };
 
-//TODO: add catch blocks where appropriate.
-
 GetLinksService.prototype.getLinks = function getLinks(tableName, options){
 	var self = this;
 	return self.constructQuery(tableName, options)
@@ -94,21 +92,20 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 			resolve(masterQuery);
 		} else {
 			resolve('default');
-			//no options should just default to the standard "fetch 100"
 		}
 	});
 };
 
-var getLinksService = new GetLinksService();
-getLinksService.getLinks('movoto_backlinks_august', {
-		'target_url' : 'http://www.movoto.com/austin-tx'
-	})
-	.then(function(rows){
-		console.log('success');
-	})
-	.catch(function(err){
-		console.log(err);
-	});
+// var getLinksService = new GetLinksService();
+// getLinksService.getLinks('movoto_backlinks_august', {
+// 		'target_url' : 'http://www.movoto.com/austin-tx'
+// 	})
+// 	.then(function(rows){
+// 		console.log('success');
+// 	})
+// 	.catch(function(err){
+// 		console.log(err);
+// 	});
 
 module.exports = new GetLinksService();
 

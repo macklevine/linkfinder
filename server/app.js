@@ -1,6 +1,7 @@
 'use strict';
 
 var config = require('./config');
+var resourceRouterFactory = require('./routeconfigurators/resourcerouterfactory');
 
 var express = require('express');
 var http = require('http');
@@ -11,9 +12,10 @@ var server;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-server = http.createServer(app);
 app.use('/', express.static(__dirname + "/../client"));
+resourceRouterFactory.addResourceRoutes(app);
 
+server = http.createServer(app);
 server.listen(config.port, function(){
 	console.log('lead exporter listening on port ' + config.port);
 });
