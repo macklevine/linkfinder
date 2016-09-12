@@ -13,19 +13,30 @@ var _formatConditionWithValue = function _formatConditionWithValue(condition, va
 		value = value.toString();
 	}
 	return util.format(queries[condition], value)
-}
+};
 
+//TODO: add catch blocks where appropriate.
 
-//A test function.
-GetLinksService.prototype.queryForTop100 = function queryForTop100(tableName){
-	var getTop100 = queries.getTop100;
-	getTop100 = util.format(getTop100, tableName);
-	console.log(getTop100);
+GetLinksService.prototype.getLinks = function getLinks(tableName, options){
+	var self = this;
+	return self.constructQuery(tableName, options)
+		.then(function(query){
+			if(query==="default"){
+				query = util.format(queries.getTop100, tableName);
+			}
+			return query;
+		})
+		.then(function(query){
+			return self.executeQuery(query);
+		});
+};
+
+GetLinksService.prototype.executeQuery = function executeQuery(query){
 	return new Promise(function(resolve, reject){
 		mssql.connect(config.dbConfig)
 			.then(function(){
 				var request = new mssql.Request()
-					.query(getTop100)
+					.query(query)
 					.then(function(rows){
 						resolve(rows);
 					})
@@ -80,13 +91,24 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 			}
 			masterQuery = util.format(masterQuery, tableName, subQuery);
 			console.log(masterQuery);
-			resolve(master);
+			resolve(masterQuery);
 		} else {
 			resolve('default');
 			//no options should just default to the standard "fetch 100"
 		}
 	});
 };
+
+var getLinksService = new GetLinksService();
+getLinksService.getLinks('movoto_backlinks_august', {
+		'target_url' : 'http://www.movoto.com/austin-tx'
+	})
+	.then(function(rows){
+		console.log('success');
+	})
+	.catch(function(err){
+		console.log(err);
+	});
 
 module.exports = new GetLinksService();
 
