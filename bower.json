@@ -17,9 +17,9 @@
     "date-range-picker": "^0.2.5",
     "moment": "^2.14.1",
     "bootstrap": "^3.3.7",
-    "angular-datatables": "^0.5.5",
     "jquery": "^3.1.0",
     "less": "^2.7.1",
-    "angular-route": "^1.5.8"
+    "angular-route": "^1.5.8",
+    "angular-data-table": "^0.7.0"
   }
 }

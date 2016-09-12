@@ -25,9 +25,14 @@ angular.module('linkFinder').controller('GetLinksController',
 				tableName : "homes_backlinks_otto"
 			}
 		];
-		$scope.getBacklinks = function getBacklinks(){
-			console.log('getting backlinks...');
-		}
+	  	$scope.options = {
+		    scrollbarV: false,
+		    emptyMessage: "no data available"
+	  	};
+	  	  $scope.data = [
+		    { name: 'Austin', gender: 'Male' },
+		    { name: 'Marjan', gender: 'Male' }
+		  ];
 		$scope.getBacklinks = function(){
 			var options = {
 				tableName : $scope.tableName
@@ -43,7 +48,8 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 			GetLinksService.getLinks(options)
 				.then(function(response){
-					console.log(response);
+					console.log(response.data);
+					$scope.data = response.data;
 				});
 		};
 	}]);

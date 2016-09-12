@@ -26,19 +26,22 @@ gulp.task('concatAndCompress', function() {
   		'bower_components/angular-route/angular-route.js',
   		'bower_components/bootstrap/dist/js/bootstrap.min.js',
   		'bower_components/angular-bootstrap/ui-bootstrap.js',
-  		'bower_components/angular-datatables/dist/angular/datatables.js',
+      'bower_components/angular-data-table/release/dataTable.js',
   		'client/lib/js/*.js'
   	])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./client/dist/js'));
     // .pipe(uglify())
     // .pipe(gulp.dest('./client/dist/js'));
+    // TODO: enable for production.
 });
 
 
 gulp.task('compileLess', function () {
   return gulp.src([
   		'./bower_components/bootstrap/dist/css/bootstrap.css',
+      './bower_components/angular-data-table/release/dataTable.css',
+      './bower_components/angular-data-table/release/material.css',
   		'./client/less/*.less',
   		'./client/less/*.css'
 	])

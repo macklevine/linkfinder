@@ -1,4 +1,4 @@
-angular.module('linkFinder', ['ngRoute'])
+angular.module('linkFinder', ['ngRoute', 'data-table'])
 	.config(function($routeProvider){
 		$routeProvider.when('/', {
 			templateUrl : 'dist/html/getLinks.html',
