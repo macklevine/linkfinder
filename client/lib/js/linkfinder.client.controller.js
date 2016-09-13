@@ -5,31 +5,18 @@ angular.module('linkFinder').controller('GetLinksController',
 		console.log("controller loaded.");
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
-	  	$scope.options = {
-		    scrollbarV: false,
-		    emptyMessage: "no data available"
-	  	};
-	  	$scope.selectedColumns = [];
-
-	  	/*
-	  	                    <label class="col-xs-6 col-sm-6 col-md-4" ng-repeat="value in specialities">
-                        <div class="checkbox-div">
-                        <input type="checkbox" checklist-model="profile.formData.specialities" checklist-value="value">
-                        </div>
-                        <div class="checkbox-value">
-                        {{value}}
-                        </div>
-                    </label>
-
-	  	 */
-
-
-
-	  	var renderTableHtml = function(){
-	  		console.log(angular.element('#data-table-wrapper'));
-	  	};
-	  	renderTableHtml();
+		$scope.selectedFields = DomainsAndFields.selectedFields;
+		$scope.options = {
+			rowHeight: 50,
+			headerHeight: 50,
+			footerHeight: false,
+			scrollbarV: false,
+			selectable: false,
+			columns: $scope.selectedFields,
+			columnMode: 'force'
+		};
 		$scope.getBacklinks = function(){
+	  		// renderTableHtml();
 			var options = {
 				tableName : $scope.tableName
 			};
