@@ -33,7 +33,7 @@
 	</div>
 </div>
 <div class="row field-selector-wrapper">
-	<button type="button" class="btn dropdown-button" ng-click="fieldsCollapsed = !fieldsCollapsed">Select Columns<span><i class="fa fa-camera-retro fa-lg"></i></span></button>
+	<button type="button" class="btn dropdown-button" ng-click="toggleCollapse()">Select Columns... <span><i id="caret-i" class="fa fa-caret-up fa-2x"></i></span></button>
 	<div uib-collapse="fieldsCollapsed">
 	    <label class="col-xs-6 col-sm-3" ng-repeat="field in fields">
 	        <div class="checkbox-div">

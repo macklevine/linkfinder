@@ -102,7 +102,7 @@ angular.module('linkFinder').factory('DomainsAndFields',
 			fields[1],
 			fields[2],
 			fields[3],
-			fields[15]
+			fields[fields.length-1]
 		];
 		return {
 			domains : domains,

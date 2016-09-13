@@ -17,7 +17,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		};
 		$scope.toggleCollapse = function(){
 			$scope.fieldsCollapsed = !$scope.fieldsCollapsed;
-			var element = angular.element('#caret-span');
+			var element = angular.element('#caret-i');
 			var up = 'fa-caret-up';
 			var down = 'fa-caret-down';
 			if(element.hasClass(down)){
@@ -44,8 +44,12 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 			GetLinksService.getLinks(options)
 				.then(function(response){
-					console.log(response.data);
-					$scope.data = response.data;
+					if(response.data.length > 1000){
+						//TODO: launch a modal with a download button and set $scope.data to an empty array.
+						alert('this is a lot of data to attempt to render as a sortable table in the browser. Proceed?');
+					} else {
+						$scope.data = response.data;
+					}
 				});
 		};
 	}]);
