@@ -20,6 +20,7 @@
     "jquery": "^3.1.0",
     "less": "^2.7.1",
     "angular-route": "^1.5.8",
-    "angular-data-table": "^0.7.0"
+    "angular-data-table": "^0.7.0",
+    "checklist-model": "^0.10.0"
   }
 }

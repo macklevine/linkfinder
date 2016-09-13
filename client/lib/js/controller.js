@@ -1,38 +1,34 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', 'GetLinksService',
-	function($scope, GetLinksService) {
+	['$scope', 'GetLinksService', 'DomainsAndFields',
+	function($scope, GetLinksService, DomainsAndFields) {
 		console.log("controller loaded.");
-		$scope.domains = [
-			{
-				label : "Movoto",
-				tableName : "movoto_backlinks_august"
-			},
-			{
-				label : "Zillow",
-				tableName : "zillow_backlinks_august"
-			},
-			{
-				label : "Trulia",
-				tableName : "trulia_backlinks_otto"
-			},
-			{
-				label : "Estately",
-				tableName : "estately_backlinks_otto"
-			},
-			{
-				label : "Homes",
-				tableName : "homes_backlinks_otto"
-			}
-		];
+		$scope.domains = DomainsAndFields.domains;
+		$scope.fields = DomainsAndFields.fields;
 	  	$scope.options = {
 		    scrollbarV: false,
 		    emptyMessage: "no data available"
 	  	};
-	  	  $scope.data = [
-		    { name: 'Austin', gender: 'Male' },
-		    { name: 'Marjan', gender: 'Male' }
-		  ];
+	  	$scope.selectedColumns = [];
+
+	  	/*
+	  	                    <label class="col-xs-6 col-sm-6 col-md-4" ng-repeat="value in specialities">
+                        <div class="checkbox-div">
+                        <input type="checkbox" checklist-model="profile.formData.specialities" checklist-value="value">
+                        </div>
+                        <div class="checkbox-value">
+                        {{value}}
+                        </div>
+                    </label>
+
+	  	 */
+
+
+
+	  	var renderTableHtml = function(){
+	  		console.log(angular.element('#data-table-wrapper'));
+	  	};
+	  	renderTableHtml();
 		$scope.getBacklinks = function(){
 			var options = {
 				tableName : $scope.tableName

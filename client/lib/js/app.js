@@ -1,4 +1,5 @@
-angular.module('linkFinder', ['ngRoute', 'data-table'])
+'use strict';
+angular.module('linkFinder', ['ngRoute', 'data-table', 'checklist-model'])
 	.config(function($routeProvider){
 		$routeProvider.when('/', {
 			templateUrl : 'dist/html/getLinks.html',
