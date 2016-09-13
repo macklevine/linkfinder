@@ -10,7 +10,7 @@ var less = require('gulp-less');
 var fs = require('fs');
 
 //set up the watchers only once.
-gulp.task('default', ['concatAndCompress', 'compileLess', 'scootTemplates', 'start-server', 'watch-for-changes']);
+gulp.task('default', ['concatAndCompress', 'getFonts', 'compileLess', 'scootTemplates', 'start-server', 'watch-for-changes']);
 
 gulp.task( 'start-server', function() {
     server.listen({
@@ -43,12 +43,21 @@ gulp.task('compileLess', function () {
   		'./bower_components/bootstrap/dist/css/bootstrap.css',
       './bower_components/angular-data-table/release/dataTable.css',
       './bower_components/angular-data-table/release/material.css',
-  		'./client/less/*.less',
-  		'./client/less/*.css'
+      './bower_components/font-awesome/css/font-awesome.css',
+      './client/less/*.less',
+      './client/less/*.css'
 	])
-    .pipe(less())
-    .pipe(concatCss("styles.css"))
-    .pipe(gulp.dest('./client/dist/css'));
+  .pipe(less())
+  .pipe(concatCss("styles.css", {
+    rebaseUrls : false
+  }))
+  .pipe(gulp.dest('./client/dist/css'));
+});
+gulp.task('getFonts', function () {
+  return gulp.src([
+      './bower_components/font-awesome/fonts/*'
+    ])
+  .pipe(gulp.dest('./client/dist/fonts'));
 });
 
 gulp.task('scootTemplates', function () {

@@ -21,6 +21,7 @@
     "less": "^2.7.1",
     "angular-route": "^1.5.8",
     "angular-data-table": "^0.7.0",
-    "checklist-model": "^0.10.0"
+    "checklist-model": "^0.10.0",
+    "font-awesome": "fontawesome#^4.6.3"
   }
 }

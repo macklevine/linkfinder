@@ -19,6 +19,9 @@
 	}
 }
 .input-options {
+	.form-control[disabled="disabled"] {
+		background-color: white;
+	}
 	label {
 		@media(max-width: @screen-width-medium-min){
 			font-size: 12px;
@@ -26,9 +29,24 @@
 	}
 }
 .data-table-wrapper {
-	padding-top: 10px;
+	padding-top: 20px;
 }
 .field-selector-wrapper {
+	#caret-span {
+		position: relative;
+		top: 4px;
+		left: 10px;
+	}
+	.dropdown-button {
+		width: 75%;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		&:focus {
+			outline : 0;
+		}
+		background-color: white;
+		border: 1px solid white;
+	}
 	.checkbox-div {
 		float: left;
 		padding-right: 5px;

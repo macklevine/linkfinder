@@ -33,21 +33,24 @@
 	</div>
 </div>
 <div class="row field-selector-wrapper">
-    <label class="col-xs-6 col-sm-3" ng-repeat="field in fields">
-        <div class="checkbox-div">
-        	<input type="checkbox" checklist-model="selectedFields" checklist-value="field">
-        </div>
-        <div class="checkbox-value">
-        {{field.name}}
-        </div>
-    </label>
+	<button type="button" class="btn dropdown-button" ng-click="fieldsCollapsed = !fieldsCollapsed">Select Columns<span><i class="fa fa-camera-retro fa-lg"></i></span></button>
+	<div uib-collapse="fieldsCollapsed">
+	    <label class="col-xs-6 col-sm-3" ng-repeat="field in fields">
+	        <div class="checkbox-div">
+	        	<input type="checkbox" checklist-model="selectedFields" checklist-value="field">
+	        </div>
+	        <div class="checkbox-value">
+	        {{field.name}}
+	        </div>
+	    </label>
+	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12 get-backlinks-button-wrapper">
 		<button ng-click="getBacklinks()" ng-disabled="!tableName" class="btn btn-success get-backlinks-button">Get Backlinks</button>
 	</div>
 </div>
-<div class="row" id="data-table-wrapper">
+<div class="row data-table-wrapper" id="data-table-wrapper">
 	<dtable options="options" rows="data" class="material dt">
 	</dtable>
 </div>

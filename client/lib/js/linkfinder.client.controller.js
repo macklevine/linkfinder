@@ -2,7 +2,7 @@
 angular.module('linkFinder').controller('GetLinksController', 
 	['$scope', 'GetLinksService', 'DomainsAndFields',
 	function($scope, GetLinksService, DomainsAndFields) {
-		console.log("controller loaded.");
+		$scope.fieldsCollapsed = false;
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
 		$scope.selectedFields = DomainsAndFields.selectedFields;
@@ -14,6 +14,19 @@ angular.module('linkFinder').controller('GetLinksController',
 			selectable: false,
 			columns: $scope.selectedFields,
 			columnMode: 'force'
+		};
+		$scope.toggleCollapse = function(){
+			$scope.fieldsCollapsed = !$scope.fieldsCollapsed;
+			var element = angular.element('#caret-span');
+			var up = 'fa-caret-up';
+			var down = 'fa-caret-down';
+			if(element.hasClass(down)){
+				element.removeClass(down);
+				element.addClass(up);
+			} else {
+				element.removeClass(up);
+				element.addClass(down);
+			}
 		};
 		$scope.getBacklinks = function(){
 	  		// renderTableHtml();
