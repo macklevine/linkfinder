@@ -52,7 +52,7 @@
 </div>
 <div class="row csv-wrapper" ng-if="data.length">
 	<span><label>Backlinks Found: {{data.length}}</label></span>
-	<button type="button">download .csv</button>
+	<button ng-csv="data" filename="results.csv" type="button">download .csv</button>
 </div>
 <div class="row data-table-wrapper" id="data-table-wrapper">
 	<dtable options="options" rows="data" class="material dt">
