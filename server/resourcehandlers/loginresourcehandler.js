@@ -7,10 +7,11 @@ var LoginResourceHandler = function LoginResourceHandler(){};
 LoginResourceHandler.prototype.getHandlerForLogin = function getHandlerForLogin(){
 	return function(req, res){
 		authService.verifyPassword(req.body.username, req.body.password)
-			.then(function(token){
+			.then(function(response){
 				res.status(200).send({
 					success: true,
-					token : token
+					username : response.username,
+					token : response.token
 				});
 			})
 			.catch(function(err){

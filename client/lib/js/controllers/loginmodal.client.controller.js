@@ -6,10 +6,16 @@ angular.module('linkFinder').controller('LoginModalController', [
 		$scope.ok = function () {
 			AuthorizationService.login($scope.username, $scope.password)
 				.then(function(response){
+					console.log(response);
 					if(response.data && response.data.success==true){
 						$scope.showSuccessMessage = true;
-						$scope.$emit('login.success', {
+						$rootScope.$emit('login.success', {
 							token : response.data.token
+						});
+						//$rootScope and $scope are equivalent here.
+						//I may want to give this modal its own scope.
+						$rootScope.$emit('username.change', {
+							username : response.data.username
 						});
 						$timeout(function(){
 							$uibModalInstance.close();
@@ -18,9 +24,6 @@ angular.module('linkFinder').controller('LoginModalController', [
 				},
 				function(err){
 					$scope.showErrorMessage = true;
-					//TODO: add some error message to be displayed within the modal
-					//indicating a wrong username or password.
-					console.log(err);
 				});
 		};
 		$scope.cancel = function () {

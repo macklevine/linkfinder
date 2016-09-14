@@ -74,6 +74,6 @@ gulp.task('watch-for-changes', function(){
   gulp.watch('./server/**/*.js', [server.restart]);
   gulp.watch('./client/lib/js/**/*.js', ['concatAndCompress']);
   gulp.watch('./client/less/*', ['compileLess']);
-  gulp.watch('./client/lib/html/**/*.html', ['scootTemplates']);
+  gulp.watch(['./client/lib/html/**/*.html', './client/index.html'], ['scootTemplates']);
 });
 

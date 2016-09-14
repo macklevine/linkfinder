@@ -13,10 +13,11 @@ AuthService.prototype.verifyPassword = function verifyPassword(user, password){
 	var shasum = crypto.createHash('sha1');
 	shasum.update(password+config.salt);
 	password = shasum.digest('hex');
-	console.log(password);
-	console.log(config.password);
 	if(password===config.password && (config.userNames.indexOf(user)>-1)){
-		return Promise.resolve(self.issueToken(user));
+		return Promise.resolve({
+			username : user,
+			token : self.issueToken(user)
+		});
 	} else {
 		return Promise.reject('Wrong username or password.');
 	}

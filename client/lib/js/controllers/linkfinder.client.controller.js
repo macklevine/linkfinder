@@ -32,6 +32,12 @@ angular.module('linkFinder').controller('GetLinksController',
 		$rootScope.$on('login.success', function(e, data){
 			$scope.auth.token = data.token;
 		});
+		$rootScope.$on('login.openModal', function(){
+			openLoginModal();
+		});
+		$rootScope.$on('logout', function(){
+			$scope.auth = {};
+		});
 		var openLoginModal = function openLoginModal(data){
 		    var modalInstance = $uibModal.open({
 				animation: $scope.animationsEnabled,
