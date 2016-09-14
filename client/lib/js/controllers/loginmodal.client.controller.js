@@ -1,16 +1,20 @@
 'use strict';
 
 angular.module('linkFinder').controller('LoginModalController', [
-	'$scope', '$rootScope', 'AuthorizationService', '$uibModalInstance',
-	function($scope, $rootScope, AuthorizationService, $uibModalInstance){
+	'$scope', '$rootScope', 'AuthorizationService', '$uibModalInstance', '$timeout',
+	function($scope, $rootScope, AuthorizationService, $uibModalInstance, $timeout){
 		$scope.ok = function () {
 			AuthorizationService.login($scope.username, $scope.password)
 				.then(function(response){
-					console.log(response.data);
-					$scope.$emit('login.success', {
-						token : response.data.token
-					});
-					$uibModalInstance.close();
+					if(response.data && response.data.success==true){
+						$scope.showSuccessMessage = true;
+						$scope.$emit('login.success', {
+							token : response.data.token
+						});
+						$timeout(function(){
+							$uibModalInstance.close();
+						}, 1000);
+					}
 				},
 				function(err){
 					//TODO: add some error message to be displayed within the modal
