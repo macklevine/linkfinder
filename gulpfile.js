@@ -31,7 +31,7 @@ gulp.task('concatAndCompress', function() {
   		'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-data-table/release/dataTable.js',
       'bower_components/ng-csv/build/ng-csv.js',
-  		'client/lib/js/*.js'
+  		'client/lib/js/**/*.js'
   	])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./client/dist/js'));

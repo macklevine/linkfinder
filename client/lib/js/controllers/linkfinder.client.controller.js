@@ -1,7 +1,7 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate',
-	function($scope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate) {
+	['$scope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', '$timeout',
+	function($scope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
@@ -28,20 +28,37 @@ angular.module('linkFinder').controller('GetLinksController',
 				element.addClass(down);
 			}
 		};
-		var openModal = function openModal(data){
-
+		var openLoginModal = function openLoginModal(data){
 		    var modalInstance = $uibModal.open({
-		      animation: $scope.animationsEnabled, //review.
-		      templateUrl: 'modalTemplate.html',
-		      controller: 'ModalController',
-		      size: 'lg',
-		      resolve: {
-		      	scopeVars : function(){
-		      		return {
-		      			data : data
-		      		};
-		      	}
-		      }
+				animation: $scope.animationsEnabled, //review.
+				templateUrl: 'modalTemplate.html',
+				controller: 'LoginController',
+				size: 'lg'
+				// resolve: {
+				// 	scopeVars : function(){
+				// 		return {
+				// 			data : data
+				// 		};
+				// 	}
+				// }
+		    });
+		};
+		$timeout(function(){
+			openLoginModal();
+		});
+		var openDownloadModal = function openDownloadModal(data){
+		    var modalInstance = $uibModal.open({
+				animation: $scope.animationsEnabled, //review.
+				templateUrl: 'modalTemplate.html',
+				controller: 'ModalController',
+				size: 'lg',
+				resolve: {
+					scopeVars : function(){
+						return {
+							data : data
+						};
+					}
+				}
 		    });
 		};
 		$scope.getBacklinks = function(){
@@ -62,7 +79,7 @@ angular.module('linkFinder').controller('GetLinksController',
 				.then(function(response){
 					if(response.data.length > 1000){
 						//TODO: launch a modal with a download button and set $scope.data to an empty array.
-						openModal(response.data);
+						openDownloadModal(response.data);
 					} else {
 						$scope.data = response.data;
 					}
