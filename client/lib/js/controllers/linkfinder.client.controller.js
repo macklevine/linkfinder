@@ -6,6 +6,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
 		$scope.selectedFields = DomainsAndFields.selectedFields;
+		$scope.auth = {};
 		$scope.options = {
 			rowHeight: 50,
 			headerHeight: 50,
@@ -29,23 +30,15 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 		};
 		console.log('hey guys');
-		$rootScope.$on('login.success', function(what){
-			console.log('login successful.');
-			console.log(what);
+		$rootScope.$on('login.success', function(e, data){
+			$scope.auth.token = data.token;
 		});
 		var openLoginModal = function openLoginModal(data){
 		    var modalInstance = $uibModal.open({
-				animation: $scope.animationsEnabled, //review.
+				animation: $scope.animationsEnabled,
 				templateUrl: 'loginModalTemplate.html',
 				controller: 'LoginModalController',
 				size: 'lg'
-				// resolve: {
-				// 	scopeVars : function(){
-				// 		return {
-				// 			data : data
-				// 		};
-				// 	}
-				// }
 		    });
 		};
 		$timeout(function(){

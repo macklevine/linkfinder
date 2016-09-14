@@ -9,13 +9,13 @@ angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
         	'Please login. ' +
         '</div>' +
         '<div>' +
-        	'<label>  Username: </label><input type="text"></input>' +
+        	'<label>  Username: </label><input ng-model="username" type="text"></input>' +
         '</div>' +
         '<div>' +
-        	'<label>  Password: </label><input type="text"></input>' +
+        	'<label>  Password: </label><input ng-model="password" type="password"></input>' +
         '</div>' +
         '<div class="modal-footer">' +
-            '<button class="btn btn-success" type="button" ng-csv="data" ng-filename="backlinks.csv" ng-click="ok()">Login</button>' +
+            '<button class="btn btn-success" type="button" ng-click="ok()">Login</button>' +
             '<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
         '</div>';
 		$templateCache.put('loginModalTemplate.html', modalHtml);

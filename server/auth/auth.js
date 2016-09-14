@@ -15,7 +15,7 @@ AuthService.prototype.verifyPassword = function verifyPassword(user, password){
 	password = shasum.digest('hex');
 	console.log(password);
 	console.log(config.password);
-	if(password===config.password && user === config.user){
+	if(password===config.password && (config.userNames.indexOf(user)>-1)){
 		return Promise.resolve(self.issueToken(user));
 	} else {
 		return Promise.reject('Wrong username or password.');
