@@ -71,11 +71,9 @@ gulp.task('scootTemplates', function () {
 });
 
 gulp.task('watch-for-changes', function(){
-  gulp.watch('./server/**/*.js', server.restart);
-	gulp.watch(['./client/lib/js/*.js','./client/lib/html/*.html','./src/*/*.js','./server/*.js'], ['concatAndCompress', 'restartServer']);
-	gulp.watch('./client/less/*', ['compileLess', server.restart]);
-	gulp.watch('./client/lib/html/*.html', ['scootTemplates']);
+  gulp.watch('./server/**/*.js', [server.restart]);
+  gulp.watch('./client/lib/js/**/*.js', ['concatAndCompress']);
+  gulp.watch('./client/less/*', ['compileLess']);
+  gulp.watch('./client/lib/html/**/*.html', ['scootTemplates']);
 });
 
-
-gulp.task('restartServer', server.restart);

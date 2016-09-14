@@ -1,7 +1,7 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', '$timeout',
-	function($scope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, $timeout) {
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$timeout',
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
@@ -28,11 +28,16 @@ angular.module('linkFinder').controller('GetLinksController',
 				element.addClass(down);
 			}
 		};
+		console.log('hey guys');
+		$rootScope.$on('login.success', function(what){
+			console.log('login successful.');
+			console.log(what);
+		});
 		var openLoginModal = function openLoginModal(data){
 		    var modalInstance = $uibModal.open({
 				animation: $scope.animationsEnabled, //review.
-				templateUrl: 'modalTemplate.html',
-				controller: 'LoginController',
+				templateUrl: 'loginModalTemplate.html',
+				controller: 'LoginModalController',
 				size: 'lg'
 				// resolve: {
 				// 	scopeVars : function(){
