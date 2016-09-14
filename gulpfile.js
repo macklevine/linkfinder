@@ -8,6 +8,7 @@ var concatCss = require('gulp-concat-css');
 var pump = require('pump');
 var less = require('gulp-less');
 var fs = require('fs');
+// var config = require('./config/config');
 
 //set up the watchers only once.
 gulp.task('default', ['concatAndCompress', 'getFonts', 'compileLess', 'scootTemplates', 'start-server', 'watch-for-changes']);
@@ -70,6 +71,7 @@ gulp.task('scootTemplates', function () {
 });
 
 gulp.task('watch-for-changes', function(){
+  gulp.watch('./server/**/*.js', server.restart);
 	gulp.watch(['./client/lib/js/*.js','./client/lib/html/*.html','./src/*/*.js','./server/*.js'], ['concatAndCompress', 'restartServer']);
 	gulp.watch('./client/less/*', ['compileLess', server.restart]);
 	gulp.watch('./client/lib/html/*.html', ['scootTemplates']);
