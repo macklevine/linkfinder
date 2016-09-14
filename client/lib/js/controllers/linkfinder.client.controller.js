@@ -29,7 +29,6 @@ angular.module('linkFinder').controller('GetLinksController',
 				element.addClass(down);
 			}
 		};
-		console.log('hey guys');
 		$rootScope.$on('login.success', function(e, data){
 			$scope.auth.token = data.token;
 		});

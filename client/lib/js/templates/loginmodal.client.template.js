@@ -3,7 +3,7 @@
 angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
 	function($templateCache){
 		var modalHtml = '<div class="modal-header">' +
-        	'<h3 class="modal-title">Login</h3>' +
+        	'<h3 class="modal-title">Please Login</h3>' +
         '</div>' +
         '<div class="modal-body login-modal-body">' +
             '<div class="row">' +
@@ -14,11 +14,14 @@ angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
                     '<div ng-show="showSuccessMessage" class="alert-success login-success" uib-alert>' +
                         'Login Successful!' +
                     '</div>' +
+                    '<div ng-show="showErrorMessage" class="alert-danger login-error" uib-alert>' +
+                        'Incorrect Username or Password.' +
+                    '</div>' +
                 '</div>' +
             '</div>' +
             '<div class="row" style="padding-top:10px">' +
                 '<div class="col-xs-6">' +
-                	'<label>  Password: </label><input class="form-control" ng-model="password" type="password"></input>' +
+                    '<label>  Password: </label><input class="form-control" ng-model="password" type="password"></input>' +
                 '</div>' +
                 '<div class="col-xs-6">' +
                 '</div>' +

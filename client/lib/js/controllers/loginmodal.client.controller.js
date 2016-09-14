@@ -14,9 +14,10 @@ angular.module('linkFinder').controller('LoginModalController', [
 						$timeout(function(){
 							$uibModalInstance.close();
 						}, 1000);
-					}
+					};
 				},
 				function(err){
+					$scope.showErrorMessage = true;
 					//TODO: add some error message to be displayed within the modal
 					//indicating a wrong username or password.
 					console.log(err);
