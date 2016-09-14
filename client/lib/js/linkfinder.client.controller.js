@@ -1,7 +1,7 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', 'GetLinksService', 'DomainsAndFields',
-	function($scope, GetLinksService, DomainsAndFields) {
+	['$scope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate',
+	function($scope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate) {
 		$scope.fieldsCollapsed = false;
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
@@ -28,6 +28,22 @@ angular.module('linkFinder').controller('GetLinksController',
 				element.addClass(down);
 			}
 		};
+		var openModal = function openModal(data){
+
+		    var modalInstance = $uibModal.open({
+		      animation: $scope.animationsEnabled, //review.
+		      templateUrl: 'modalTemplate.html',
+		      controller: 'ModalController',
+		      size: 'lg',
+		      resolve: {
+		      	scopeVars : function(){
+		      		return {
+		      			data : data
+		      		};
+		      	}
+		      }
+		    });
+		};
 		$scope.getBacklinks = function(){
 	  		// renderTableHtml();
 			var options = {
@@ -46,7 +62,7 @@ angular.module('linkFinder').controller('GetLinksController',
 				.then(function(response){
 					if(response.data.length > 1000){
 						//TODO: launch a modal with a download button and set $scope.data to an empty array.
-						alert('this is a lot of data to attempt to render as a sortable table in the browser. Proceed?');
+						openModal(response.data);
 					} else {
 						$scope.data = response.data;
 					}
