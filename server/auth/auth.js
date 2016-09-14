@@ -30,16 +30,33 @@ AuthService.prototype.issueToken = function(user){
 		}, 
 		config.secret, 
 		{
-			expiresIn: 60*60*24 
+			expiresIn: 60*60*24 //TODO: tweak this so that it expires in less time to experiment with the behavior
 		}
 	);
 	return token;
 };
 
-// var authService = new AuthService();
-// authService.verifyPassword('linkFinderFrontEnd', 'Movoto2016')
-// 	.then(function(token){
-// 		console.log(token);
-// 	});
+AuthService.prototype.validateRequestMiddleWare = function(){
+	return function(req, res, next){
+  		var token = req.headers['x-access-token'];
+	  	if (token) {
+		    jwt.verify(token, config.secret, function(err, decoded) {      
+				if (err) {
+					res.status(401).send({
+						success: false, 
+						message: 'Invalid token.' 
+					});    
+				} else {  
+					next();
+				}
+			});
+	  	} else {
+	  		res.status(401).send({
+	  			success: false,
+	  			message: 'Invalid token.'
+	  		});
+	  	}
+	};
+};
 
 module.exports = new AuthService();

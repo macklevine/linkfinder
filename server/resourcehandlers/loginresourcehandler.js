@@ -9,6 +9,7 @@ LoginResourceHandler.prototype.getHandlerForLogin = function getHandlerForLogin(
 		authService.verifyPassword(req.body.username, req.body.password)
 			.then(function(token){
 				res.status(200).send({
+					success: true,
 					token : token
 				});
 			})
