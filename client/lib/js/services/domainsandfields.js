@@ -1,6 +1,6 @@
 'use strict';
 angular.module('linkFinder').factory('DomainsAndFields', 
-	function(){
+	[function(){
 		var domains = [
 			{
 				label : "Movoto",
@@ -109,4 +109,4 @@ angular.module('linkFinder').factory('DomainsAndFields',
 			fields : fields,
 			selectedFields : selectedFields
 		};
-	});
+	}]);

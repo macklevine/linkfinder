@@ -1,6 +1,6 @@
 'use strict';
 angular.module('linkFinder', ['ngRoute', 'ngSanitize', 'ngCsv', 'data-table', 'checklist-model', 'ui.bootstrap'])
-	.config(function($routeProvider){
+	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/', {
 			templateUrl : 'dist/html/getLinks.html',
 			controller : 'GetLinksController'
@@ -9,5 +9,5 @@ angular.module('linkFinder', ['ngRoute', 'ngSanitize', 'ngCsv', 'data-table', 'c
 		// 	templateUrl : 'somethingelse.html',
 		// 	controller : 'somethingelse'
 		// })
-	})
+	}])
   .run();

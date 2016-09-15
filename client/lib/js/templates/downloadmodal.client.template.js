@@ -15,5 +15,4 @@ angular.module('linkFinder').factory('ModalTemplate', ['$templateCache',
         '</div>';
 		$templateCache.put('modalTemplate.html', modalHtml);
 		return {};
-	}]
-);
+	}]);

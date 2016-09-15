@@ -11,7 +11,8 @@ var fs = require('fs');
 // var config = require('./config/config');
 
 //set up the watchers only once.
-gulp.task('default', ['concatAndCompress', 'getFonts', 'compileLess', 'scootTemplates', 'start-server', 'watch-for-changes']);
+gulp.task('default', ['concatJavascript', 'getFonts', 'compileLess', 'scootTemplates', 'start-server', 'watch-for-changes']);
+gulp.task('release', ['concatAndMinifyJavascript', 'getFonts', 'compileLess', 'scootTemplates'])
 
 gulp.task( 'start-server', function() {
     server.listen({
@@ -19,27 +20,33 @@ gulp.task( 'start-server', function() {
     });
 });
 
-gulp.task('concatAndCompress', function() {
-  return gulp.src([
-  		'bower_components/jquery/dist/jquery.js',
-  		'bower_components/datatables.net/js/jquery.dataTables.js',
-  		'bower_components/angular/angular.js',
-      'bower_components/angular-sanitize/angular-sanitize.js',
-      'bower_components/checklist-model/checklist-model.js',
-  		'bower_components/angular-route/angular-route.js',
-  		'bower_components/bootstrap/dist/js/bootstrap.min.js',
-  		'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'bower_components/angular-data-table/release/dataTable.js',
-      'bower_components/ng-csv/build/ng-csv.js',
-  		'client/lib/js/**/*.js'
-  	])
+var javaScriptSources = [
+  'bower_components/jquery/dist/jquery.js',
+  'bower_components/datatables.net/js/jquery.dataTables.js',
+  'bower_components/angular/angular.js',
+  'bower_components/angular-sanitize/angular-sanitize.js',
+  'bower_components/checklist-model/checklist-model.js',
+  'bower_components/angular-route/angular-route.js',
+  'bower_components/bootstrap/dist/js/bootstrap.min.js',
+  'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+  'bower_components/angular-data-table/release/dataTable.js',
+  'bower_components/ng-csv/build/ng-csv.js',
+  'client/lib/js/**/*.js'
+];
+
+gulp.task('concatJavascript', function() {
+  return gulp.src(javaScriptSources)
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./client/dist/js'));
-    // .pipe(uglify())
-    // .pipe(gulp.dest('./client/dist/js'));
-    // TODO: enable for production.
 });
 
+gulp.task('concatAndMinifyJavascript', function(){
+  return gulp.src(javaScriptSources)
+    .pipe(concat('bundle.js'))
+    .pipe(gulp.dest('./client/dist/js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./client/dist/js'));
+});
 
 gulp.task('compileLess', function () {
   return gulp.src([
@@ -72,7 +79,7 @@ gulp.task('scootTemplates', function () {
 
 gulp.task('watch-for-changes', function(){
   gulp.watch('./server/**/*.js', [server.restart]);
-  gulp.watch('./client/lib/js/**/*.js', ['concatAndCompress']);
+  gulp.watch('./client/lib/js/**/*.js', ['concatJavascript']);
   gulp.watch('./client/less/*', ['compileLess']);
   gulp.watch(['./client/lib/html/**/*.html', './client/index.html'], ['scootTemplates']);
 });
