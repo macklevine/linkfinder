@@ -40,7 +40,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		});
 		var openLoginModal = function openLoginModal(data){
 		    var modalInstance = $uibModal.open({
-				animation: $scope.animationsEnabled,
+				animation: true,
 				templateUrl: 'loginModalTemplate.html',
 				controller: 'LoginModalController',
 				size: 'lg'
@@ -51,7 +51,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		});
 		var openDownloadModal = function openDownloadModal(data){
 		    var modalInstance = $uibModal.open({
-				animation: $scope.animationsEnabled, //review.
+				animation: true,
 				templateUrl: 'modalTemplate.html',
 				controller: 'ModalController',
 				size: 'lg',

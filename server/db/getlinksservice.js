@@ -88,24 +88,12 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 				}
 			}
 			masterQuery = util.format(masterQuery, tableName, subQuery);
-			console.log(masterQuery);
 			resolve(masterQuery);
 		} else {
 			resolve('default');
 		}
 	});
 };
-
-// var getLinksService = new GetLinksService();
-// getLinksService.getLinks('movoto_backlinks_august', {
-// 		'target_url' : 'http://www.movoto.com/austin-tx'
-// 	})
-// 	.then(function(rows){
-// 		console.log('success');
-// 	})
-// 	.catch(function(err){
-// 		console.log(err);
-// 	});
 
 module.exports = new GetLinksService();
 
