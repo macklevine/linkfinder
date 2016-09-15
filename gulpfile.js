@@ -12,7 +12,7 @@ var fs = require('fs');
 
 //set up the watchers only once.
 gulp.task('default', ['concatJavascript', 'getFonts', 'compileLess', 'scootTemplates', 'start-server', 'watch-for-changes']);
-gulp.task('release', ['concatAndMinifyJavascript', 'getFonts', 'compileLess', 'scootTemplates'])
+gulp.task('release', ['concatAndMinifyJavascript', 'getFonts', 'compileLess', 'scootTemplates']);
 
 gulp.task( 'start-server', function() {
     server.listen({

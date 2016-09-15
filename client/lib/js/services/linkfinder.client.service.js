@@ -1,6 +1,6 @@
 'use strict';
 angular.module('linkFinder').factory('GetLinksService', 
-	[function($http, $q){
+	['$http', function($http){
 		var getLinks = function(options, token){
 			return $http({
 				url : '/links',
@@ -9,9 +9,6 @@ angular.module('linkFinder').factory('GetLinksService',
 					"x-access-token" : token
 				},
 				params : options
-			})
-			.then(function(response){
-				return $q.resolve(response);
 			});
 		};
 		return {
