@@ -25,6 +25,7 @@
     "font-awesome": "fontawesome#^4.6.3",
     "angular-sanitize": "^1.5.8",
     "ng-csv": "^0.3.6",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "ngstorage": "^0.3.11"
   }
 }

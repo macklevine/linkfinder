@@ -31,6 +31,7 @@ var javaScriptSources = [
   'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
   'bower_components/angular-data-table/release/dataTable.js',
   'bower_components/ng-csv/build/ng-csv.js',
+  'bower_components/ngstorage/ngStorage.js',
   'client/lib/js/**/*.js'
 ];
 
@@ -79,7 +80,7 @@ gulp.task('scootTemplates', function () {
 
 gulp.task('watch-for-changes', function(){
   gulp.watch('./server/**/*.js', [server.restart]);
-  gulp.watch('./client/lib/js/**/*.js', ['concatJavascript']);
+  gulp.watch(['./client/lib/js/**/*.js', './bower_components/**/*.*'], ['concatJavascript']);
   gulp.watch('./client/less/*', ['compileLess']);
   gulp.watch(['./client/lib/html/**/*.html', './client/index.html'], ['scootTemplates']);
 });

@@ -1,12 +1,16 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $timeout) {
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$sessionStorage', '$timeout',
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $sessionStorage, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
 		$scope.selectedFields = DomainsAndFields.selectedFields;
-		$scope.auth = {};
+		$scope.columnOrder = DomainsAndFields.columnOrder;
+		$scope.$storage = $sessionStorage;
+		if(!$scope.$storage.auth){
+			$scope.$storage.auth = {};
+		}
 		$scope.options = {
 			rowHeight: 50,
 			headerHeight: 50,
@@ -30,13 +34,14 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 		};
 		$rootScope.$on('login.success', function(e, data){
-			$scope.auth.token = data.token;
+			$scope.$storage.auth.token = data.token;
+			$scope.$storage.auth.username = data.username;
 		});
 		$rootScope.$on('login.openModal', function(){
 			openLoginModal();
 		});
 		$rootScope.$on('logout', function(){
-			$scope.auth = {};
+			$scope.$storage.auth = {};
 		});
 		var openLoginModal = function openLoginModal(data){
 		    var modalInstance = $uibModal.open({
@@ -47,7 +52,9 @@ angular.module('linkFinder').controller('GetLinksController',
 		    });
 		};
 		$timeout(function(){
-			openLoginModal();
+			if(!$scope.$storage.auth.token){
+				openLoginModal();
+			}
 		});
 		var openDownloadModal = function openDownloadModal(data){
 		    var modalInstance = $uibModal.open({
@@ -58,7 +65,8 @@ angular.module('linkFinder').controller('GetLinksController',
 				resolve: {
 					scopeVars : function(){
 						return {
-							data : data
+							data : data,
+							columnOrder : $scope.columnOrder
 						};
 					}
 				}
@@ -78,7 +86,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			if($scope.enableTargetUrl && $scope.targetUrlContains){
 				options.target_url = $scope.targetUrlContains;
 			}
-			GetLinksService.getLinks(options, $scope.auth.token)
+			GetLinksService.getLinks(options, $scope.$storage.auth.token)
 				.then(function(response){
 					if(response.data.length > 1000){
 						//TODO: launch a modal with a download button and set $scope.data to an empty array.

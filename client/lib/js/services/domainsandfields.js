@@ -33,6 +33,14 @@ angular.module('linkFinder').factory('DomainsAndFields',
 				name: 'Source URL'
 			},
 			{
+				prop: 'source_crawl_date',
+				name: 'Source Crawled'
+			},
+			{
+				prop: 'source_first_found_date',
+				name: 'First Found'
+			},
+			{
 				prop: 'anchor_text',
 				name: 'Anchor Text'
 			},
@@ -97,6 +105,10 @@ angular.module('linkFinder').factory('DomainsAndFields',
 				name: 'Domain Trust Flow'
 			}
 		];
+		var columnOrder = [];
+		fields.forEach(function(field){
+			columnOrder.push(field.name);
+		});
 		var selectedFields = [
 			fields[0],
 			fields[1],
@@ -107,6 +119,7 @@ angular.module('linkFinder').factory('DomainsAndFields',
 		return {
 			domains : domains,
 			fields : fields,
-			selectedFields : selectedFields
+			selectedFields : selectedFields,
+			columnOrder : columnOrder
 		};
 	}]);

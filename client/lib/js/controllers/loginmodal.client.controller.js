@@ -9,11 +9,7 @@ angular.module('linkFinder').controller('LoginModalController', [
 					if(response.data && response.data.success==true){
 						$scope.showSuccessMessage = true;
 						$rootScope.$emit('login.success', {
-							token : response.data.token
-						});
-						//$rootScope and $scope are equivalent here.
-						//I may want to give this modal its own scope.
-						$rootScope.$emit('username.change', {
+							token : response.data.token,
 							username : response.data.username
 						});
 						$timeout(function(){

@@ -47,7 +47,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 get-backlinks-button-wrapper">
-		<button ng-click="getBacklinks()" ng-disabled="!tableName||!auth.token" class="btn btn-success get-backlinks-button">Get Backlinks</button>
+		<button ng-click="getBacklinks()" ng-disabled="!tableName||!$storage.auth.token" class="btn btn-success get-backlinks-button">Get Backlinks</button>
 	</div>
 </div>
 <div class="row csv-wrapper" ng-if="data.length">
