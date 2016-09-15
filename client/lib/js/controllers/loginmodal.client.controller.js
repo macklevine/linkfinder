@@ -6,7 +6,6 @@ angular.module('linkFinder').controller('LoginModalController', [
 		$scope.ok = function () {
 			AuthorizationService.login($scope.username, $scope.password)
 				.then(function(response){
-					console.log(response);
 					if(response.data && response.data.success==true){
 						$scope.showSuccessMessage = true;
 						$rootScope.$emit('login.success', {

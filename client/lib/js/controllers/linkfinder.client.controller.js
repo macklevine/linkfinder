@@ -78,7 +78,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			if($scope.enableTargetUrl && $scope.targetUrlContains){
 				options.target_url = $scope.targetUrlContains;
 			}
-			GetLinksService.getLinks(options)
+			GetLinksService.getLinks(options, $scope.auth.token)
 				.then(function(response){
 					if(response.data.length > 1000){
 						//TODO: launch a modal with a download button and set $scope.data to an empty array.
