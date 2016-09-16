@@ -3,24 +3,24 @@ angular.module('linkFinder').factory('DomainsAndFields',
 	[function(){
 		var domains = [
 			{
-				label : "Movoto",
-				tableName : "movoto_backlinks_august"
+				label : 'Movoto',
+				tableName : 'movoto_backlinks_august'
 			},
 			{
-				label : "Zillow",
-				tableName : "zillow_backlinks_august"
+				label : 'Zillow',
+				tableName : 'zillow_backlinks_august'
 			},
 			{
-				label : "Trulia",
-				tableName : "trulia_backlinks_otto"
+				label : 'Trulia',
+				tableName : 'trulia_backlinks_otto'
 			},
 			{
-				label : "Estately",
-				tableName : "estately_backlinks_otto"
+				label : 'Estately',
+				tableName : 'estately_backlinks_otto'
 			},
 			{
-				label : "Homes",
-				tableName : "homes_backlinks_otto"
+				label : 'Homes',
+				tableName : 'homes_backlinks_otto'
 			}
 		];
 		var fields = [
@@ -46,31 +46,31 @@ angular.module('linkFinder').factory('DomainsAndFields',
 			},
 			{
 				prop: 'flag_no_follow',
-				name: "No Follow?"
+				name: 'No Follow?'
 			},
 			{
 				prop: 'flag_image_link',
-				name: "Image Link?"
+				name: 'Image Link?'
 			},
 			{
 				prop: 'flag_redirect',
-				name: "Redirect?"
+				name: 'Redirect?'
 			},
 			{
 				prop: 'flag_frame',
-				name: "iFrame?"
+				name: 'iFrame?'
 			},
 			{
 				prop: 'flag_old_crawl',
-				name: "Old Crawl?"
+				name: 'Old Crawl?'
 			},
 			{
 				prop: 'flag_alt_text',
-				name: "Alt Text?"
+				name: 'Alt Text?'
 			},
 			{
 				prop: 'flag_mention',
-				name: "Mention?"
+				name: 'Mention?'
 			},
 			{
 				prop: 'source_citation_flow',
@@ -82,11 +82,11 @@ angular.module('linkFinder').factory('DomainsAndFields',
 			},
 			{
 				prop: 'target_citation_flow',
-				name: "Target Citation Flow"
+				name: 'Target Citation Flow'
 			},
 			{
 				prop: 'target_trust_flow',
-				name: "Target Trust Flow"
+				name: 'Target Trust Flow'
 			},
 			{
 				prop: 'source_topical_trust_flow_topic',
@@ -105,9 +105,11 @@ angular.module('linkFinder').factory('DomainsAndFields',
 				name: 'Domain Trust Flow'
 			}
 		];
-		var columnOrder = [];
+		var csvColumns = [];
+		var csvHeaders = [];
 		fields.forEach(function(field){
-			columnOrder.push(field.name);
+			csvColumns.push(field.prop);
+			csvHeaders.push(field.name);
 		});
 		var selectedFields = [
 			fields[0],
@@ -120,6 +122,7 @@ angular.module('linkFinder').factory('DomainsAndFields',
 			domains : domains,
 			fields : fields,
 			selectedFields : selectedFields,
-			columnOrder : columnOrder
+			csvColumns : csvColumns,
+			csvHeaders : csvHeaders
 		};
 	}]);

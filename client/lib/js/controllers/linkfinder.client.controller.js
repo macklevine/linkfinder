@@ -6,7 +6,8 @@ angular.module('linkFinder').controller('GetLinksController',
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
 		$scope.selectedFields = DomainsAndFields.selectedFields;
-		$scope.columnOrder = DomainsAndFields.columnOrder;
+		$scope.csvColumns = DomainsAndFields.csvColumns;
+		$scope.csvHeaders = DomainsAndFields.csvHeaders;
 		$scope.$storage = $sessionStorage;
 		if(!$scope.$storage.auth){
 			$scope.$storage.auth = {};
@@ -66,7 +67,8 @@ angular.module('linkFinder').controller('GetLinksController',
 					scopeVars : function(){
 						return {
 							data : data,
-							columnOrder : $scope.columnOrder
+							csvColumns : $scope.csvColumns,
+							csvHeaders : $scope.csvHeaders
 						};
 					}
 				}
