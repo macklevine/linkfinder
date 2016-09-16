@@ -9,7 +9,7 @@ var production = {
 	},
 	port : process.env.PORT,
 	authConfig : {
-		userNames : process.env.USERS ? process.env.USERS.split(" ") : [],
+		userNames : process.env.USERS ? process.env.USERS.split(",") : [],
 		salt : process.env.SALT,
 		password : process.env.PASSWORD,
 		secret : process.env.SECRET
