@@ -6,6 +6,7 @@ var promise = require('bluebird');
 var queries = require('./queries/queries');
 var util = require('util');
 var config = require('../config/config');
+var optionsMapper = require('../mappers/optionsmapper');
 
 var GetLinksService = function GetLinksService(){};
 
@@ -56,16 +57,17 @@ GetLinksService.prototype.executeQuery = function executeQuery(query){
 
 var _validateOptions = function _validateOptions(options){
 	var valid = true;
-	var validOptions = {
-		"ref_domain_topical_trust_flow_value" : "string",
-		"source_url" : "string",
-		"target_url" : "string"
-	};
 	for (var k in options){
-		if(typeof options[k] !== validOptions[k]){
+		if(!optionsMapper[k]){
 			return false;
 		}
 	}
+	var selectedFields = options.selectedFields.split("|");
+	selectedFields.forEach(function(selectedField){
+		if(!optionsMapper[selectedField]){
+			return false;
+		}
+	});
 	return valid;
 };
 
@@ -73,17 +75,21 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 	var self = this;
 
 	var masterQuery = queries.master;
+	var defaultQuery = queries.getTop100;
 	var conditions = [];
 	var subQuery = "";
+	var selectedFields = options.selectedFields.replace(/\|/g, ",");
 
 	return new Promise(function(resolve, reject){
 		if(!_validateOptions(options)){
-			return reject('invalid data type for option.');
+			logger.error(options, 'one or more of the following fields was found to be invalid.');
+			return reject('one or more of the following fields was found to be invalid');
 		}
 		for(var k in options){
-			conditions.push(_formatConditionWithValue(k, options[k]));
+			if(k !== "selectedFields"){
+				conditions.push(_formatConditionWithValue(k, options[k]));
+			}
 		}
-
 		if(conditions.length){
 			for(var i = 0; i < conditions.length; i++){
 				if(i === conditions.length-1){
@@ -92,10 +98,11 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 					subQuery += (conditions[i] + " AND ");
 				}
 			}
-			masterQuery = util.format(masterQuery, tableName, subQuery);
+			masterQuery = util.format(masterQuery, selectedFields, tableName, subQuery);
 			resolve(masterQuery);
 		} else {
-			resolve('default');
+			defaultQuery = util.format(defaultQuery, selectedFields, tableName);
+			resolve(defaultQuery);
 		}
 	});
 };

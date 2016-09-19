@@ -6,7 +6,9 @@ var getLinksService = require('../db/getlinksservice');
 GetLinksResourceHandler.prototype.getHandlerForGetLinks = function getHandlerForGetLinks(){
 	return function(req, res){
 		if(!req.query.tableName){
-			res.status(400).send('no query parameters specified.');
+			res.status(400).send('tableName query parameter must be specified.');
+		} else if (!req.query.selectedFields) {
+			res.status(400).send('you must select at least one field to query.');
 		} else {
 			var options = {};
 			var tableName = req.query.tableName;
@@ -15,11 +17,13 @@ GetLinksResourceHandler.prototype.getHandlerForGetLinks = function getHandlerFor
 					options[k] = req.query[k];
 				}
 			}
+			console.log(req.query.selectedFields);
 			getLinksService.getLinks(tableName, options, req.user)
 				.then(function(rows){
 					res.status(200).send(rows);
 				})
 				.catch(function(err){
+					console.log(err);
 					res.status(500).send(err);
 				});
 		}

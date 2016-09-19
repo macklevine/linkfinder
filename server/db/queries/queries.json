@@ -1,6 +1,6 @@
 {
-	"getTop100" : "SELECT TOP 100 * FROM SEO.dbo.%s",
-	"master" : "SELECT * FROM %s WHERE %s",
+	"getTop100" : "SELECT TOP 100 %s FROM SEO.dbo.%s",
+	"master" : "SELECT %s FROM %s WHERE %s",
 	"ref_domain_topical_trust_flow_value" : "ref_domain_topical_trust_flow_value >= %s",
 	"source_url" : "source_url LIKE '%s'",
 	"target_url" : "target_url LIKE '%s'"

@@ -75,7 +75,6 @@ angular.module('linkFinder').controller('GetLinksController',
 		    });
 		};
 		$scope.getBacklinks = function(){
-	  		// renderTableHtml();
 			var options = {
 				tableName : $scope.tableName
 			};
@@ -88,6 +87,14 @@ angular.module('linkFinder').controller('GetLinksController',
 			if($scope.enableTargetUrl && $scope.targetUrlContains){
 				options.target_url = $scope.targetUrlContains;
 			}
+			options.selectedFields = "";
+			angular.forEach($scope.selectedFields, function(field, index, array){
+				if(index === array.length-1){
+					options.selectedFields += field.prop;
+				} else {
+					options.selectedFields += (field.prop + "|");
+				}
+			});
 			GetLinksService.getLinks(options, $scope.$storage.auth.token)
 				.then(function(response){
 					if(response.data.length > 1000){
