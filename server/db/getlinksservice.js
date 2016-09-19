@@ -1,5 +1,6 @@
 'use strict';
 
+var logger = require('../logger/logger');
 var mssql = require('mssql');
 var promise = require('bluebird');
 var queries = require('./queries/queries');
@@ -15,13 +16,17 @@ var _formatConditionWithValue = function _formatConditionWithValue(condition, va
 	return util.format(queries[condition], value)
 };
 
-GetLinksService.prototype.getLinks = function getLinks(tableName, options){
+GetLinksService.prototype.getLinks = function getLinks(tableName, options, user){
 	var self = this;
 	return self.constructQuery(tableName, options)
 		.then(function(query){
 			if(query==="default"){
 				query = util.format(queries.getTop100, tableName);
 			}
+			logger.info({
+				query : query,
+				user : user
+			}, 'user ' + user + ' fetching links using above query.');
 			return query;
 		})
 		.then(function(query){

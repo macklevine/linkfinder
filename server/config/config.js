@@ -13,6 +13,13 @@ var production = {
 		salt : process.env.SALT,
 		password : process.env.PASSWORD,
 		secret : process.env.SECRET
+	},
+	loggerConfig : {
+		name: "linkFinderLogger",
+		streams: [{
+			level: "debug",
+			path: 'logs/linkFinderLog.log'
+		}]
 	}
 };
 
