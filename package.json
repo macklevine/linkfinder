@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
+  "config": {
+    "unsafe-perm":true
+  },
+  "scripts": {
     "postinstall": "node_modules/bower/bin/bower install --allow-root --config.interactive=false"
   },
   "author": "",
