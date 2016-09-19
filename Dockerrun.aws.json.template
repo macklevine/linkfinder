@@ -1,0 +1,26 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "Bucket": "movoto-builds",
+    "Key": "dockercfg"
+  },
+  "Image": {
+    "Name": "movoto/linkfinder:<TAG>",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/var/log/movotong",
+      "ContainerDirectory": "/usr/src/app/log"
+    },
+    {
+      "HostDirectory": "/var/log/movotong/pm2",
+      "ContainerDirectory": "/root/.pm2/logs"
+    }
+  ]
+}
