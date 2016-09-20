@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "config": {
+    "unsafe-perm":true
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "node_modules/bower/bin/bower install --allow-root --config.interactive=false"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.6",
+    "bower": "^1.7.9",
     "body-parser": "^1.15.2",
+    "bunyan": "^1.8.1",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",

@@ -6,3 +6,4 @@ devconfig.js
 Dockerfile
 Dockerrun.aws.json.template
 eb-service-deploy.sh
+*.log

@@ -1,5 +1,6 @@
 'use strict';
 
+var logger = require('../logger/logger');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var Promise = require('bluebird');
@@ -24,6 +25,9 @@ AuthService.prototype.verifyPassword = function verifyPassword(user, password){
 };
 
 AuthService.prototype.issueToken = function(user){
+	logger.info({
+		user : user
+	}, 'user ' + user + ' has successfully signed in and retrieved a token.');
 	var self = this;
 	var token = jwt.sign({
 			name : user,
@@ -48,6 +52,7 @@ AuthService.prototype.validateRequestMiddleWare = function(){
 						message: 'Invalid token.' 
 					});    
 				} else {  
+					req.user = decoded.name;
 					next();
 				}
 			});
