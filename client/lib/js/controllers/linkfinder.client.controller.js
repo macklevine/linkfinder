@@ -12,6 +12,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		if(!$scope.$storage.auth){
 			$scope.$storage.auth = {};
 		}
+		$scope.fieldsLastFetched = [];
 		$scope.options = {
 			rowHeight: 50,
 			headerHeight: 50,
@@ -75,6 +76,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		    });
 		};
 		$scope.getBacklinks = function(){
+			var fieldsLastFetched = [];
 			var options = {
 				tableName : $scope.tableName
 			};
@@ -89,6 +91,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 			options.selectedFields = "";
 			angular.forEach($scope.selectedFields, function(field, index, array){
+				fieldsLastFetched.push(field);
 				if(index === array.length-1){
 					options.selectedFields += field.prop;
 				} else {
@@ -98,9 +101,9 @@ angular.module('linkFinder').controller('GetLinksController',
 			GetLinksService.getLinks(options, $scope.$storage.auth.token)
 				.then(function(response){
 					if(response.data.length > 1000){
-						//TODO: launch a modal with a download button and set $scope.data to an empty array.
 						openDownloadModal(response.data);
 					} else {
+						$scope.fieldsLastFetched = fieldsLastFetched;
 						$scope.data = response.data;
 					}
 				});

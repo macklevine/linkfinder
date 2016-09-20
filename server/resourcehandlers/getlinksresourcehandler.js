@@ -17,7 +17,6 @@ GetLinksResourceHandler.prototype.getHandlerForGetLinks = function getHandlerFor
 					options[k] = req.query[k];
 				}
 			}
-			console.log(req.query.selectedFields);
 			getLinksService.getLinks(tableName, options, req.user)
 				.then(function(rows){
 					res.status(200).send(rows);
