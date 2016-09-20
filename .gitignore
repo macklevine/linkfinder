@@ -3,3 +3,6 @@ bower_components
 public
 dist
 devconfig.js
+Dockerfile
+Dockerrun.aws.json.template
+eb-service-deploy.sh
