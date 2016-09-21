@@ -19,16 +19,16 @@
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enableReferringUrl"></input> Source URL contains:</label>
+			<label><input type="checkbox" ng-model="enableReferringUrl"></input> Source URL starts with:</label>
 		</div>
-		<input ng-disabled="!enableReferringUrl" placeholder="e.g. spamsite.net" style="width:100%" class="form-control" ng-model="referringUrlContains" type="text"></input>
+		<input ng-disabled="!enableReferringUrl" placeholder="e.g. http://spamsite.net" style="width:100%" class="form-control" ng-model="referringUrlContains" type="text"></input>
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enableTargetUrl"></input> Target URL contains:</label>
+			<label><input type="checkbox" ng-model="enableTargetUrl"></input> Target URL starts with:</label>
 		</div>
 		<div>
-		<input ng-disabled="!enableTargetUrl" placeholder="e.g. /dallas-tx/" style="width:100%" class="form-control" ng-model="targetUrlContains" type="text"></input>
+		<input ng-disabled="!enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control" ng-model="targetUrlContains" type="text"></input>
 		</div>
 	</div>
 </div>
