@@ -1,29 +1,11 @@
 'use strict';
 angular.module('linkFinder').factory('DomainsAndFields', 
-	[function(){
-		//TODO: make these fetchable and configurable
-		var domains = [
-			{
-				label : 'Movoto',
-				tableName : 'movoto_backlinks_august'
-			},
-			{
-				label : 'Zillow',
-				tableName : 'zillow_backlinks_august'
-			},
-			{
-				label : 'Trulia',
-				tableName : 'trulia_backlinks_otto'
-			},
-			{
-				label : 'Estately',
-				tableName : 'estately_backlinks_otto'
-			},
-			{
-				label : 'Homes',
-				tableName : 'homes_backlinks_otto'
-			}
-		];
+	['$http', '$q', function($http, $q){
+		var deferred = $q.defer();
+		$http.get('/domainsandtables')
+			.then(function(response){
+				deferred.resolve(response.data);
+			}); //TODO: handle rejections
 		var fields = [
 			{
 				prop: 'target_url',
@@ -120,7 +102,7 @@ angular.module('linkFinder').factory('DomainsAndFields',
 			fields[fields.length-1]
 		];
 		return {
-			domains : domains,
+			domainsAndTables : deferred.promise,
 			fields : fields,
 			selectedFields : selectedFields,
 			csvColumns : csvColumns,

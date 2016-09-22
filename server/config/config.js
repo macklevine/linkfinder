@@ -11,6 +11,7 @@ var production = {
 		database : process.env.DB_NAME,
 		requestTimeout : 30000
 	},
+	domainsAndTables : process.env.DOMAINS_AND_TABLES ? JSON.parse(process.env.DOMAINS_AND_TABLES) : {},
 	port : process.env.PORT,
 	authConfig : {
 		userNames : process.env.USERS ? process.env.USERS.split(",") : [],

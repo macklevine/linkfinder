@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', express.static(__dirname + "/../client"));
+app.get('/domainsandtables', function(req, res){
+	res.status(200).send(config.domainsAndTables);
+});
 resourceRouterFactory.addResourceRoutes(app);
 
 server = http.createServer(app);

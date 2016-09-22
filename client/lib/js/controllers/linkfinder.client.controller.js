@@ -3,6 +3,10 @@ angular.module('linkFinder').controller('GetLinksController',
 	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$sessionStorage', '$timeout',
 	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $sessionStorage, $timeout) {
 		$scope.fieldsCollapsed = false;
+		var domainsAndTables = DomainsAndFields.domainsAndTables;
+		domainsAndTables.then(function(fetchedDomainsAndTables){
+			$scope.domains  = fetchedDomainsAndTables;
+		});
 		$scope.domains = DomainsAndFields.domains;
 		$scope.fields = DomainsAndFields.fields;
 		$scope.selectedFields = DomainsAndFields.selectedFields;
