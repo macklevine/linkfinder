@@ -16,7 +16,10 @@ gulp.task('release', ['concatAndMinifyJavascript', 'getFonts', 'compileLess', 's
 
 gulp.task( 'start-server', function() {
     server.listen({
-    	path: './server/app.js'
+    	path: './server/app.js',
+      env: {
+        NODE_ENV : 'development'
+      }
     });
 });
 

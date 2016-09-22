@@ -1,6 +1,7 @@
 'use strict';
 angular.module('linkFinder').factory('DomainsAndFields', 
 	[function(){
+		//TODO: make these fetchable and configurable
 		var domains = [
 			{
 				label : 'Movoto',

@@ -1,0 +1,22 @@
+CREATE TABLE SEO.dbo.table_name (
+	target_url varchar(8000),
+	source_url varchar(8000),
+	anchor_text varchar(8000),
+	source_crawl_date date,
+	source_first_found_date date,
+	flag_no_follow char(1),
+	flag_image_link char(1),
+	flag_redirect char(1),
+	flag_frame char(1),
+	flag_old_crawl char(1),
+	flag_alt_text char(1),
+	flag_mention char(1),
+	source_citation_flow tinyint,
+	source_trust_flow tinyint,
+	target_citation_flow tinyint,
+	target_trust_flow tinyint,
+	source_topical_trust_flow_topic varchar(255),
+	source_topical_trust_flow_value tinyint,
+	ref_domain_topical_trust_flow_topic varchar(255),
+	ref_domain_topical_trust_flow_value tinyint
+)

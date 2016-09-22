@@ -3,6 +3,7 @@
 var devconfig;
 
 var production = {
+	databaseType : process.env.DB_TYPE || 'mssql', 
 	dbConfig : {
 		user : process.env.DB_USER,
 		password : process.env.DB_PASSWORD,

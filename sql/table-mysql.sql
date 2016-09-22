@@ -1,0 +1,22 @@
+CREATE TABLE movoto_backlinks (
+	target_url VARCHAR(6000) DEFAULT NULL,
+	source_url VARCHAR(6000) DEFAULT NULL,
+	anchor_text VARCHAR(6000) DEFAULT NULL,
+	source_crawl_date DATE DEFAULT NULL,
+	source_first_found_date DATE DEFAULT NULL,
+	flag_no_follow CHAR(1) DEFAULT NULL,
+	flag_image_link CHAR(1) DEFAULT NULL,
+	flag_redirect CHAR(1) DEFAULT NULL,
+	flag_frame CHAR(1) DEFAULT NULL,
+	flag_old_crawl CHAR(1) DEFAULT NULL,
+	flag_alt_text CHAR(1) DEFAULT NULL,
+	flag_mention CHAR(1) DEFAULT NULL,
+	source_citation_flow TINYINT DEFAULT NULL,
+	source_trust_flow TINYINT DEFAULT NULL,
+	target_citation_flow TINYINT DEFAULT NULL,
+	target_trust_flow TINYINT DEFAULT NULL,
+	source_topical_trust_flow_topic VARCHAR(255) DEFAULT NULL,
+	source_topical_trust_flow_value TINYINT DEFAULT NULL,
+	ref_domain_topical_trust_flow_topic VARCHAR(255) DEFAULT NULL,
+	ref_domain_topical_trust_flow_value TINYINT DEFAULT NULL
+)
