@@ -3,4 +3,5 @@ bower_components
 public
 dist
 devconfig.js
+testconfig.js
 *.log

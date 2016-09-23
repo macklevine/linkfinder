@@ -1,6 +1,7 @@
 'use strict';
 
 var devconfig;
+var testconfig;
 
 var production = {
 	databaseType : process.env.DB_TYPE || 'mssql', 
@@ -31,6 +32,9 @@ var production = {
 if(process.env.NODE_ENV==="development"){
 	devconfig = require("./devconfig");
 	module.exports = devconfig;
+} else if (process.env.NODE_ENV==="test") {
+	testconfig = require('./testconfig');
+	module.exports = testconfig;
 } else {
 	module.exports = production;
 }
