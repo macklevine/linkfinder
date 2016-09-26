@@ -5,23 +5,13 @@ var logger = require('../logger/logger');
 var promise = require('bluebird');
 var util = require('util');
 var optionsMapper = require('../mappers/optionsmapper');
+var connectionManager = require('./connectionmanager');
 
-var mssql;
-var mysql;
-var pool;
 var queries;
 
 if(config.databaseType === 'mysql'){
-	mysql = require('mysql');
 	queries = require('./queries/queries').mysql;
-	pool  = mysql.createPool({
-		host     : config.dbConfig.server,
-		user     : config.dbConfig.user,
-		password : config.dbConfig.password,
-		database : config.dbConfig.database
-	});
 } else {
-	mssql = require('mssql');
 	queries = require('./queries/queries').mssql;
 }
 
@@ -54,51 +44,16 @@ GetLinksService.prototype.getLinks = function getLinks(tableName, options, user)
 
 GetLinksService.prototype.executeQuery = function executeQuery(query){
 	return new Promise(function(resolve, reject){
-		if(config.databaseType === "mysql"){
-			pool.getConnection(function(err, connection){
-				if(err){
-					logger.error({
-						err : err
-					}, "error attempting to get connection from MySQL pool.");
-					reject(err);
-				} else {
-					connection.query(query, function(err, rows){
-						connection.release();
-						if(err){
-							logger.error({
-								err : err,
-								query : query
-							}, "error attempting to execute MySQL query.")
-							reject(err);
-						} else {
-							resolve(rows);
-						}
-					});
-				}
+		connectionManager.getConnection()
+			.then(function(connection){
+				return connectionManager.executeQuery(query, connection);
+			})
+			.then(function(rows){
+				resolve(rows);
+			})
+			.catch(function(err){
+				reject(err);
 			});
-		} else {
-			mssql.connect(config.dbConfig)
-				.then(function(){
-					var request = new mssql.Request()
-						.query(query)
-						.then(function(rows){
-							resolve(rows);
-						})
-						.catch(function(err){
-							logger.error({
-								err : err,
-								query : query
-							}, "error attempting to execute MSSQL query.");
-							reject(err);
-						});
-				})
-				.catch(function(err){
-					logger.error({	
-						err : err
-					}, "error attempting to get MSSQL connection.");
-					reject(err);
-				});
-		}
 	});
 };
 
@@ -160,9 +115,3 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 };
 
 module.exports = new GetLinksService();
-
-
-
-
-
-
