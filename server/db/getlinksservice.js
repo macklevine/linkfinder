@@ -120,7 +120,6 @@ var _validateOptions = function _validateOptions(options){
 
 GetLinksService.prototype.constructQuery = function constructQuery(tableName, options){
 	var self = this;
-
 	var masterQuery = queries.master;
 	var defaultQuery = queries.getTop100;
 	var conditions = [];

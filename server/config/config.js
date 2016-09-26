@@ -24,7 +24,7 @@ var production = {
 		name: "linkFinderLogger",
 		streams: [{
 			level: "debug",
-			path: 'log/linkFinderLog.log'
+			path: __dirname + '/../../log/linkFinderLog.log'
 		}]
 	}
 };
