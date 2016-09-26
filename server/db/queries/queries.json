@@ -1,6 +1,6 @@
 {
 	"mssql" : {
-		"getTop100" : "SELECT TOP 100 %s FROM SEO.dbo.%s",
+		"getTop100" : "SELECT TOP 100 %s FROM %s",
 		"master" : "SELECT %s FROM %s WHERE %s",
 		"ref_domain_topical_trust_flow_value" : "ref_domain_topical_trust_flow_value >= %s",
 		"source_url" : "source_url LIKE '%s'",
