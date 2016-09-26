@@ -23,6 +23,7 @@
     "gulp-develop-server": "^0.5.2",
     "gulp-less": "^3.1.0",
     "gulp-minify": "0.0.14",
+    "gulp-mocha": "^3.0.1",
     "gulp-uglify": "^2.0.0",
     "jsonwebtoken": "^7.1.9",
     "less": "^2.7.1",
