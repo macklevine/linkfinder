@@ -128,6 +128,12 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 	var selectedFields = options.selectedFields.replace(/\|/g, ",");
 
 	return new Promise(function(resolve, reject){
+		if(!tableName){
+			return reject('must select a table.');
+		}
+		if(!selectedFields){
+			return reject('must provide at least one selected field.');
+		}
 		if(!_validateOptions(options)){
 			logger.error(options, 'one or more of the following fields was found to be invalid.');
 			return reject('one or more of the following fields was found to be invalid');
