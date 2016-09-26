@@ -60,3 +60,7 @@ npm install
 bower install
 gulp release
 ```
+
+##TODO
+Tests
+Streaming results of large queries
