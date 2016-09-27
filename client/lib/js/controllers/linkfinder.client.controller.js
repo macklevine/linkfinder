@@ -112,14 +112,14 @@ angular.module('linkFinder').controller('GetLinksController',
 			var options = {
 				tableName : $scope.criteria.tableName
 			};
-			if($scope.enabledCriteria.enableTrustFlow && $scope.trustFlow){
-				options.ref_domain_topical_trust_flow_value = $scope.trustFlow;
+			if($scope.enabledCriteria.enableTrustFlow && $scope.criteria.trustFlow){
+				options.ref_domain_topical_trust_flow_value = $scope.criteria.trustFlow;
 			}
-			if($scope.enabledCriteria.enableReferringUrl && $scope.referringUrlContains){
-				options.source_url = $scope.referringUrlContains;
+			if($scope.enabledCriteria.enableReferringUrl && $scope.criteria.referringUrlContains){
+				options.source_url = $scope.criteria.referringUrlContains;
 			}
-			if($scope.enabledCriteria.enableTargetUrl && $scope.targetUrlContains){
-				options.target_url = $scope.targetUrlContains;
+			if($scope.enabledCriteria.enableTargetUrl && $scope.criteria.targetUrlContains){
+				options.target_url = $scope.criteria.targetUrlContains;
 			}
 			options.selectedFields = "";
 			angular.forEach($scope.selectedFields, function(field, index, array){
