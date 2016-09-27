@@ -1,8 +1,10 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$sessionStorage', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $sessionStorage, $timeout) {
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$sessionStorage', '$routeParams', '$timeout',
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $sessionStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
+		$scope.enabledCriteria = {};
+		$scope.criteria = {};
 		var domainsAndTables = DomainsAndFields.domainsAndTables;
 		domainsAndTables.then(function(fetchedDomainsAndTables){
 			$scope.domains  = fetchedDomainsAndTables;
@@ -15,6 +17,10 @@ angular.module('linkFinder').controller('GetLinksController',
 		$scope.$storage = $sessionStorage;
 		if(!$scope.$storage.auth){
 			$scope.$storage.auth = {};
+		} else {
+			$timeout(function(){
+				$scope.$emit('params.inspect');
+			});
 		}
 		$scope.fieldsLastFetched = [];
 		$scope.options = {
@@ -39,14 +45,15 @@ angular.module('linkFinder').controller('GetLinksController',
 				element.addClass(down);
 			}
 		};
-		$rootScope.$on('login.success', function(e, data){
+		var offLoginSuccess = $rootScope.$on('login.success', function(e, data){
 			$scope.$storage.auth.token = data.token;
 			$scope.$storage.auth.username = data.username;
+			$scope.$emit('params.inspect');
 		});
-		$rootScope.$on('login.openModal', function(){
+		var offOpenLoginModal = $rootScope.$on('login.openModal', function(){
 			openLoginModal();
 		});
-		$rootScope.$on('logout', function(){
+		var offLogout = $rootScope.$on('logout', function(){
 			$scope.$storage.auth = {};
 		});
 		var openLoginModal = function openLoginModal(data){
@@ -79,18 +86,39 @@ angular.module('linkFinder').controller('GetLinksController',
 				}
 		    });
 		};
+		$scope.$on('params.inspect', function(){
+			$timeout(function(){
+				//TODO: add option to modify $scope.selectedFields by pushing every field found in $routeParams separated by pipes.
+				if($routeParams.find === "1" && $routeParams.tableName){
+					$scope.criteria.tableName = $routeParams.tableName;
+					if($routeParams.ref_domain_topical_trust_flow_value){
+						$scope.enabledCriteria.enableTrustFlow = true;
+						$scope.criteria.trustFlow = $routeParams.ref_domain_topical_trust_flow_value;
+					}
+					if($routeParams.source_url){
+						$scope.enabledCriteria.enableReferringUrl = true;
+						$scope.criteria.referringUrlContains = $routeParams.source_url;
+					}
+					if($routeParams.target_url){
+						$scope.enabledCriteria.enableTargetUrl = true;
+						$scope.criteria.targetUrlContains = $routeParams.target_url;
+					}
+				}
+				$scope.getBacklinks();
+			});
+		});
 		$scope.getBacklinks = function(){
 			var fieldsLastFetched = [];
 			var options = {
-				tableName : $scope.tableName
+				tableName : $scope.criteria.tableName
 			};
-			if($scope.enableTrustFlow && $scope.trustFlow){
+			if($scope.enabledCriteria.enableTrustFlow && $scope.trustFlow){
 				options.ref_domain_topical_trust_flow_value = $scope.trustFlow;
 			}
-			if($scope.enableReferringUrl && $scope.referringUrlContains){
+			if($scope.enabledCriteria.enableReferringUrl && $scope.referringUrlContains){
 				options.source_url = $scope.referringUrlContains;
 			}
-			if($scope.enableTargetUrl && $scope.targetUrlContains){
+			if($scope.enabledCriteria.enableTargetUrl && $scope.targetUrlContains){
 				options.target_url = $scope.targetUrlContains;
 			}
 			options.selectedFields = "";
@@ -112,4 +140,9 @@ angular.module('linkFinder').controller('GetLinksController',
 					}
 				});
 		};
+		$scope.$on('$destroy', function(){
+			offLoginSuccess();
+			offOpenLoginModal();
+			offLogout();
+		});
 	}]);

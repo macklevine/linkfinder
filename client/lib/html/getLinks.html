@@ -4,31 +4,31 @@
 			<label>Select a domain:</label>
 		</div>
 		<div>
-			<select style="width:100%" class="form-control" name="selectDomainName" ng-model="tableName" required>
-				<option ng-repeat="domain in domains" ng-value="domain.tableName">{{domain.label}}</option>
+			<select style="width:100%" class="form-control" name="selectDomainName" ng-model="criteria.tableName" required>
+				<option ng-selected="domain.tableName==criteria.tableName" ng-repeat="domain in domains" ng-value="domain.tableName">{{domain.label}}</option>
 			</select>
 		</div>
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enableTrustFlow"></input> Trust Flow >=</label>
+			<label><input type="checkbox" ng-model="enabledCriteria.enableTrustFlow"></input> Trust Flow >=</label>
 		</div>
 		<div>
-			<input ng-disabled="!enableTrustFlow" placeholder="input a number from 1-100..." style="width:100%" class="form-control" ng-model="trustFlow" type="text"></input>
+			<input ng-disabled="!enabledCriteria.enableTrustFlow" placeholder="input a number from 1-100..." style="width:100%" class="form-control" ng-model="criteria.trustFlow" type="text"></input>
 		</div>
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enableReferringUrl"></input> Source URL starts with:</label>
+			<label><input type="checkbox" ng-model="enabledCriteria.enableReferringUrl"></input> Source URL starts with:</label>
 		</div>
-		<input ng-disabled="!enableReferringUrl" placeholder="e.g. http://spamsite.net" style="width:100%" class="form-control" ng-model="referringUrlContains" type="text"></input>
+		<input ng-disabled="!enabledCriteria.enableReferringUrl" placeholder="e.g. http://spamsite.net" style="width:100%" class="form-control" ng-model="criteria.referringUrlContains" type="text"></input>
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enableTargetUrl"></input> Target URL starts with:</label>
+			<label><input type="checkbox" ng-model="enabledCriteria.enableTargetUrl"></input> Target URL starts with:</label>
 		</div>
 		<div>
-		<input ng-disabled="!enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control" ng-model="targetUrlContains" type="text"></input>
+		<input ng-disabled="!enabledCriteria.enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control" ng-model="criteria.targetUrlContains" type="text"></input>
 		</div>
 	</div>
 </div>
@@ -47,7 +47,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 get-backlinks-button-wrapper">
-		<button ng-click="getBacklinks()" ng-disabled="!tableName||!$storage.auth.token" class="btn btn-success get-backlinks-button">Get Backlinks</button>
+		<button ng-click="getBacklinks()" ng-disabled="!criteria.tableName||!$storage.auth.token" class="btn btn-success get-backlinks-button">Get Backlinks</button>
 	</div>
 </div>
 <div class="row csv-wrapper" ng-if="data.length">
