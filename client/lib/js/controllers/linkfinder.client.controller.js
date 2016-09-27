@@ -1,7 +1,7 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$sessionStorage', '$routeParams', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $sessionStorage, $routeParams, $timeout) {
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.enabledCriteria = {};
 		$scope.criteria = {};
@@ -14,7 +14,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		$scope.selectedFields = DomainsAndFields.selectedFields;
 		$scope.csvColumns = DomainsAndFields.csvColumns;
 		$scope.csvHeaders = DomainsAndFields.csvHeaders;
-		$scope.$storage = $sessionStorage;
+		$scope.$storage = $localStorage;
 		if(!$scope.$storage.auth){
 			$scope.$storage.auth = {};
 		} else {
@@ -103,8 +103,8 @@ angular.module('linkFinder').controller('GetLinksController',
 						$scope.enabledCriteria.enableTargetUrl = true;
 						$scope.criteria.targetUrlContains = $routeParams.target_url;
 					}
+					$scope.getBacklinks();
 				}
-				$scope.getBacklinks();
 			});
 		});
 		$scope.getBacklinks = function(){
