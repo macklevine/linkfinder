@@ -1,8 +1,8 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', 'URLParamsService', 
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', 'TableOptions', 'URLParamsService', 
 	'$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, URLParamsService, $uibModal, 
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, TableOptions, URLParamsService, $uibModal, 
 		ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.loading = false;
@@ -26,16 +26,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			});
 		}
 		$scope.fieldsLastFetched = [];
-		$scope.options = {
-			loadingMessage: "No links fetched.",
-			rowHeight: 50,
-			headerHeight: 50,
-			footerHeight: false,
-			scrollbarV: false,
-			selectable: false,
-			columns: $scope.selectedFields,
-			columnMode: 'force'
-		};
+		$scope.tableOptions = TableOptions;
 		$scope.toggleCollapse = function(){
 			$scope.fieldsCollapsed = !$scope.fieldsCollapsed;
 			var element = angular.element('#caret-i');
