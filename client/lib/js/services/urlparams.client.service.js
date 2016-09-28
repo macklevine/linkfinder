@@ -1,9 +1,12 @@
 'use strict';
 angular.module('linkFinder').factory('URLParamsService', 
-	[function(){
+	['DomainsAndFields', function(DomainsAndFields){
 		var routeParamsToScope = function(routeParams){
 			var criteria = {};
 			var enabledCriteria = {};
+			var selectedFields = [];
+			var availableFields = DomainsAndFields.fields;
+			var parsedFields;
 			criteria.tableName = routeParams.tableName;
 			if(routeParams.ref_domain_topical_trust_flow_value){
 				enabledCriteria.enableTrustFlow = true;
@@ -17,9 +20,21 @@ angular.module('linkFinder').factory('URLParamsService',
 				enabledCriteria.enableTargetUrl = true;
 				criteria.targetUrlContains = routeParams.target_url;
 			}
+			if(routeParams.selectedFields){
+				parsedFields = routeParams.selectedFields.split("|");
+				angular.forEach(parsedFields, function(parsedField){
+					for(var i = 0; i < availableFields.length; i++){
+						if(parsedField === availableFields[i].prop){
+							selectedFields.push(availableFields[i]);
+							break;
+						}
+					}
+				});
+			}
 			return {
 				criteria : criteria,
-				enabledCriteria : enabledCriteria
+				enabledCriteria : enabledCriteria,
+				selectedFields : selectedFields
 			};
 		};
 		var scopeToRouteParams = function(criteria, routeParams){

@@ -1,7 +1,9 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', 'URLParamsService', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, URLParamsService, $uibModal, ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', 'URLParamsService', 
+	'$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, URLParamsService, $uibModal, 
+		ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.loading = false;
 		$scope.enabledCriteria = {};
@@ -90,11 +92,13 @@ angular.module('linkFinder').controller('GetLinksController',
 		};
 		$scope.$on('params.inspect', function(){
 			$timeout(function(){
-				//TODO: add option to modify $scope.selectedFields by pushing every field found in $routeParams separated by pipes.
 				if($routeParams.find === "1" && $routeParams.tableName){
 					var routeParamsToScope = URLParamsService.routeParamsToScope($routeParams);
 					$scope.criteria = routeParamsToScope.criteria;
 					$scope.enabledCriteria = routeParamsToScope.enabledCriteria;
+					if(routeParamsToScope.selectedFields.length){
+						$scope.selectedFields = routeParamsToScope.selectedFields;
+					}
 					$scope.getBacklinks();
 				}
 			});
