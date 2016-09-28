@@ -26,7 +26,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			});
 		}
 		$scope.fieldsLastFetched = [];
-		$scope.tableOptions = TableOptions;
+		$scope.tableOptions = TableOptions.getOptions($scope.selectedFields);
 		$scope.toggleCollapse = function(){
 			$scope.fieldsCollapsed = !$scope.fieldsCollapsed;
 			var element = angular.element('#caret-i');
