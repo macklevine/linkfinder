@@ -54,7 +54,12 @@
 	<span><label>Backlinks Found: {{data.length}}</label></span>
 	<button csv-header="csvHeaders" csv-column-order="csvColumns" ng-csv="data" filename="results.csv" type="button">download .csv</button>
 </div>
-<div class="row data-table-wrapper" id="data-table-wrapper">
+<div class="row" ng-show="loading">
+	<div class="loader">
+	  <span>{</span><span>}</span>
+	</div>
+</div>
+<div ng-show="!loading" class="row data-table-wrapper" id="data-table-wrapper">
 	<dtable options="options" rows="data" class="material dt">
 	</dtable>
 </div>

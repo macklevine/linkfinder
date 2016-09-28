@@ -3,6 +3,7 @@ angular.module('linkFinder').controller('GetLinksController',
 	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
 	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
+		$scope.loading = false;
 		$scope.enabledCriteria = {};
 		$scope.criteria = {};
 		var domainsAndTables = DomainsAndFields.domainsAndTables;
@@ -24,6 +25,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		}
 		$scope.fieldsLastFetched = [];
 		$scope.options = {
+			loadingMessage: "No links fetched.",
 			rowHeight: 50,
 			headerHeight: 50,
 			footerHeight: false,
@@ -108,6 +110,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			});
 		});
 		$scope.getBacklinks = function(){
+			$scope.loading = true;
 			var fieldsLastFetched = [];
 			var options = {
 				tableName : $scope.criteria.tableName
@@ -132,6 +135,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			});
 			GetLinksService.getLinks(options, $scope.$storage.auth.token)
 				.then(function(response){
+					$scope.loading = false;
 					if(response.data.length > 1000){
 						openDownloadModal(response.data);
 					} else {
