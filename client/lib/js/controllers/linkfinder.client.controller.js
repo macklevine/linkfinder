@@ -1,7 +1,7 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, $uibModal, ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
+	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', 'URLParamsService', '$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
+	function($scope, $rootScope, GetLinksService, DomainsAndFields, URLParamsService, $uibModal, ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.loading = false;
 		$scope.enabledCriteria = {};
@@ -92,19 +92,9 @@ angular.module('linkFinder').controller('GetLinksController',
 			$timeout(function(){
 				//TODO: add option to modify $scope.selectedFields by pushing every field found in $routeParams separated by pipes.
 				if($routeParams.find === "1" && $routeParams.tableName){
-					$scope.criteria.tableName = $routeParams.tableName;
-					if($routeParams.ref_domain_topical_trust_flow_value){
-						$scope.enabledCriteria.enableTrustFlow = true;
-						$scope.criteria.trustFlow = $routeParams.ref_domain_topical_trust_flow_value;
-					}
-					if($routeParams.source_url){
-						$scope.enabledCriteria.enableReferringUrl = true;
-						$scope.criteria.referringUrlContains = $routeParams.source_url;
-					}
-					if($routeParams.target_url){
-						$scope.enabledCriteria.enableTargetUrl = true;
-						$scope.criteria.targetUrlContains = $routeParams.target_url;
-					}
+					var routeParamsToScope = URLParamsService.routeParamsToScope($routeParams);
+					$scope.criteria = routeParamsToScope.criteria;
+					$scope.enabledCriteria = routeParamsToScope.enabledCriteria;
 					$scope.getBacklinks();
 				}
 			});
