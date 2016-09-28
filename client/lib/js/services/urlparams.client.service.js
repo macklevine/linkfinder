@@ -1,6 +1,6 @@
 'use strict';
 angular.module('linkFinder').factory('URLParamsService', 
-	['DomainsAndFields', function(DomainsAndFields){
+	['DomainsAndFields', '$location', '$interpolate', function(DomainsAndFields, $location, $interpolate){
 		var routeParamsToScope = function(routeParams){
 			var criteria = {};
 			var enabledCriteria = {};
@@ -37,8 +37,33 @@ angular.module('linkFinder').factory('URLParamsService',
 				selectedFields : selectedFields
 			};
 		};
-		var scopeToRouteParams = function(criteria, routeParams){
-
+		var _constructSelectedFields = function(selectedFields){
+			var returnFields = [];
+			angular.forEach(selectedFields, function(field){
+				returnFields.push(field.prop);
+			});
+			returnFields = returnFields.join('|');
+			console.log(returnFields);
+			return returnFields;
+		};
+		var scopeToRouteParams = function(criteria, enabledCriteria, selectedFields){//pass a copy of the last selected options.
+			var params = {
+				find : "1",
+				tableName : criteria.tableName
+			};
+			if(criteria.targetUrlContains && enabledCriteria.enableTargetUrl){
+				params.target_url = criteria.targetUrlContains;
+			}
+			if(criteria.referringUrlContains && enabledCriteria.enableReferringUrl){
+				params.source_url = criteria.referringUrlContains;
+			}
+			if(criteria.trustFlow && enabledCriteria.enableTrustFlow){
+				params.ref_domain_topical_trust_flow_value = criteria.trustFlow;
+			}
+			if(selectedFields.length){
+				params.selectedFields = _constructSelectedFields(selectedFields);
+			}
+			$location.search(params);
 		};
 		return {
 			routeParamsToScope : routeParamsToScope,

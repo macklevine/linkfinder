@@ -90,12 +90,15 @@ angular.module('linkFinder').controller('GetLinksController',
 					if(routeParamsToScope.selectedFields.length){
 						$scope.selectedFields = routeParamsToScope.selectedFields;
 					}
-					$scope.getBacklinks();
+					$scope.getBacklinks(true);
 				}
 			});
 		});
-		$scope.getBacklinks = function(){
+		$scope.getBacklinks = function(preserveUrl){
 			$scope.loading = true;
+			if(!preserveUrl){
+				URLParamsService.scopeToRouteParams($scope.criteria, $scope.enabledCriteria, $scope.selectedFields);
+			}
 			GetLinksService.getLinks($scope.criteria, $scope.enabledCriteria, $scope.selectedFields, $scope.$storage.auth.token)
 				.then(function(response){
 					$scope.loading = false;
