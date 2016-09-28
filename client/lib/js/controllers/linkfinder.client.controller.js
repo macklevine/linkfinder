@@ -105,35 +105,13 @@ angular.module('linkFinder').controller('GetLinksController',
 		});
 		$scope.getBacklinks = function(){
 			$scope.loading = true;
-			var fieldsLastFetched = [];
-			var options = {
-				tableName : $scope.criteria.tableName
-			};
-			if($scope.enabledCriteria.enableTrustFlow && $scope.criteria.trustFlow){
-				options.ref_domain_topical_trust_flow_value = $scope.criteria.trustFlow;
-			}
-			if($scope.enabledCriteria.enableReferringUrl && $scope.criteria.referringUrlContains){
-				options.source_url = $scope.criteria.referringUrlContains;
-			}
-			if($scope.enabledCriteria.enableTargetUrl && $scope.criteria.targetUrlContains){
-				options.target_url = $scope.criteria.targetUrlContains;
-			}
-			options.selectedFields = "";
-			angular.forEach($scope.selectedFields, function(field, index, array){
-				fieldsLastFetched.push(field);
-				if(index === array.length-1){
-					options.selectedFields += field.prop;
-				} else {
-					options.selectedFields += (field.prop + "|");
-				}
-			});
-			GetLinksService.getLinks(options, $scope.$storage.auth.token)
+			GetLinksService.getLinks($scope.criteria, $scope.enabledCriteria, $scope.selectedFields, $scope.$storage.auth.token)
 				.then(function(response){
 					$scope.loading = false;
 					if(response.data.length > 1000){
 						openDownloadModal(response.data);
 					} else {
-						$scope.fieldsLastFetched = fieldsLastFetched;
+						$scope.fieldsLastFetched = response.fieldsLastFetched;
 						$scope.data = response.data;
 					}
 				});
