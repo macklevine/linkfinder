@@ -19,6 +19,7 @@ angular.module('linkFinder').factory('URLParamsService',
 			if(routeParams.target_url){
 				enabledCriteria.enableTargetUrl = true;
 				criteria.targetUrlContains = routeParams.target_url;
+				criteria.exactMatch = routeParams.exactMatch === "1" ? true : false;
 			}
 			if(routeParams.selectedFields){
 				parsedFields = routeParams.selectedFields.split("|");
@@ -53,6 +54,7 @@ angular.module('linkFinder').factory('URLParamsService',
 			};
 			if(criteria.targetUrlContains && enabledCriteria.enableTargetUrl){
 				params.target_url = criteria.targetUrlContains;
+				params.exactMatch = criteria.exactMatch ? "1" : "0";
 			}
 			if(criteria.referringUrlContains && enabledCriteria.enableReferringUrl){
 				params.source_url = criteria.referringUrlContains;

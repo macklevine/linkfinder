@@ -14,6 +14,7 @@ angular.module('linkFinder').factory('GetLinksService',
 			}
 			if(enabledCriteria.enableTargetUrl && criteria.targetUrlContains){
 				options.target_url = criteria.targetUrlContains;
+				options.exactMatch = criteria.exactMatch ? "1" : "0";
 			}
 			options.selectedFields = "";
 			angular.forEach(selectedFields, function(field, index, array){

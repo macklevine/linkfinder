@@ -30,6 +30,9 @@
 		<div>
 		<input ng-disabled="!enabledCriteria.enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control" ng-model="criteria.targetUrlContains" type="text"></input>
 		</div>
+		<div ng-if="enabledCriteria.enableTargetUrl">
+			<label>Exact Match? <input type="checkbox" ng-model="criteria.exactMatch"></input></label>
+		</div>
 	</div>
 </div>
 <div class="row field-selector-wrapper">

@@ -93,8 +93,11 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 			return reject('one or more of the following fields was found to be invalid');
 		}
 		for(var k in options){
-			if(k !== "selectedFields"){
+			if(k !== "selectedFields" && k !== "exactMatch"){
 				conditions.push(_formatConditionWithValue(k, options[k]));
+			}
+			if(k==="exactMatch"){
+				conditions.push(_formatConditionWithValue("target_url_exact_match", options.target_url));
 			}
 		}
 		if(conditions.length){

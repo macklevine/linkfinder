@@ -2,6 +2,7 @@
 
 var optionTypes = {
 	"selectedFields" : 1,
+	"exactMatch" : 1,
 	"anchor_text" : 1,
 	"source_crawl_date" : 1,
 	"source_first_found_date" : 1,
