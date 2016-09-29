@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('linkFinder').controller('NavbarController', ['$scope', '$rootScope', '$sessionStorage', function($scope, $rootScope, $sessionStorage){
-	if($sessionStorage.auth && $sessionStorage.auth.username){
-		$scope.username = $sessionStorage.auth.username;
+angular.module('linkFinder').controller('NavbarController', ['$scope', '$rootScope', '$localStorage', function($scope, $rootScope, $localStorage){
+	if($localStorage.auth && $localStorage.auth.username){
+		$scope.username = $localStorage.auth.username;
 	}
 	$rootScope.$on('login.success', function(e, data){
 		$scope.username = data.username;
