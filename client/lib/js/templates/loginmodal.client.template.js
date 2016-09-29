@@ -17,6 +17,9 @@ angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
                     '<div ng-show="showErrorMessage" class="alert-danger login-error" uib-alert>' +
                         'Incorrect Username or Password.' +
                     '</div>' +
+                    '<div ng-show="logInAgainMessage" class="alert-danger login-error" uib-alert>' +
+                        '{{logInAgainMessage}}' +
+                    '</div>' +
                 '</div>' +
             '</div>' +
             '<div class="row" style="padding-top:10px">' +

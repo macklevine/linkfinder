@@ -36,7 +36,7 @@ angular.module('linkFinder').factory('GetLinksService',
 			.then(function(response){
 				response.fieldsLastFetched = fieldsLastFetched;
 				return response;
-			})
+			});
 		};
 		return {
 			getLinks : getLinks

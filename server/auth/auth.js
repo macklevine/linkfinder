@@ -35,7 +35,7 @@ AuthService.prototype.issueToken = function(user){
 		}, 
 		config.secret, 
 		{
-			expiresIn: 60*60*24 //TODO: tweak this so that it expires in less time to experiment with the behavior
+			expiresIn: 60*60*24
 		}
 	);
 	return token;

@@ -43,7 +43,11 @@ angular.module('linkFinder').controller('GetLinksController',
 		var offLoginSuccess = $rootScope.$on('login.success', function(e, data){
 			$scope.$storage.auth.token = data.token;
 			$scope.$storage.auth.username = data.username;
-			$scope.$emit('params.inspect');
+			if(data.reattemptRequest){
+				$scope.getBacklinks();
+			} else {
+				$scope.$emit('params.inspect');
+			}
 		});
 		var offOpenLoginModal = $rootScope.$on('login.openModal', function(){
 			openLoginModal();
@@ -51,12 +55,19 @@ angular.module('linkFinder').controller('GetLinksController',
 		var offLogout = $rootScope.$on('logout', function(){
 			$scope.$storage.auth = {};
 		});
-		var openLoginModal = function openLoginModal(data){
+		var openLoginModal = function openLoginModal(logInAgainMessage){
 		    var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'loginModalTemplate.html',
 				controller: 'LoginModalController',
-				size: 'lg'
+				size: 'lg',
+				resolve : {
+					scopeVars : function(){
+						return {
+							logInAgainMessage : logInAgainMessage
+						};
+					}
+				}
 		    });
 		};
 		$timeout(function(){
@@ -102,11 +113,18 @@ angular.module('linkFinder').controller('GetLinksController',
 			GetLinksService.getLinks($scope.criteria, $scope.enabledCriteria, $scope.selectedFields, $scope.$storage.auth.token)
 				.then(function(response){
 					$scope.loading = false;
-					if(response.data.length > 1000){
+					// if(response){
+					if(response.data && response.data.length > 1000){
 						openDownloadModal(response.data);
-					} else {
+					} else if (response.data){
 						$scope.fieldsLastFetched = response.fieldsLastFetched;
 						$scope.data = response.data;
+					}
+				})
+				.catch(function(err){
+					$scope.loading = false;
+					if(err.status === 401){
+						openLoginModal("Please log in again.");
 					}
 				});
 		};

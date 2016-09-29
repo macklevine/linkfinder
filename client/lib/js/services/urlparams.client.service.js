@@ -44,7 +44,6 @@ angular.module('linkFinder').factory('URLParamsService',
 				returnFields.push(field.prop);
 			});
 			returnFields = returnFields.join('|');
-			console.log(returnFields);
 			return returnFields;
 		};
 		var scopeToRouteParams = function(criteria, enabledCriteria, selectedFields){//pass a copy of the last selected options.
