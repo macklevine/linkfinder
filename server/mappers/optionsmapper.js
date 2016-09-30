@@ -3,6 +3,7 @@
 var optionTypes = {
 	"selectedFields" : 1,
 	"exactMatch" : 1,
+	"countOnly" : 1, //only used for backend API; not an option that can be selected in the UI.
 	"anchor_text" : 1,
 	"source_crawl_date" : 1,
 	"source_first_found_date" : 1,

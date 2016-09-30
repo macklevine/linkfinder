@@ -7,7 +7,7 @@ GetLinksResourceHandler.prototype.getHandlerForGetLinks = function getHandlerFor
 	return function(req, res){
 		if(!req.query.tableName){
 			res.status(400).send('tableName query parameter must be specified.');
-		} else if (!req.query.selectedFields) {
+		} else if (!req.query.selectedFields && !req.query.countOnly) {
 			res.status(400).send('you must select at least one field to query.');
 		} else {
 			var options = {};

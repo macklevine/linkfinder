@@ -64,12 +64,14 @@ var _validateOptions = function _validateOptions(options){
 			return false;
 		}
 	}
-	var selectedFields = options.selectedFields.split("|");
-	selectedFields.forEach(function(selectedField){
-		if(!optionsMapper[selectedField]){
-			return false;
-		}
-	});
+	if(options.selectedFields){
+		var selectedFields = options.selectedFields.split("|");
+		selectedFields.forEach(function(selectedField){
+			if(!optionsMapper[selectedField]){
+				return false;
+			}
+		});
+	}
 	return valid;
 };
 
@@ -79,13 +81,12 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 	var defaultQuery = queries.getTop100;
 	var conditions = [];
 	var subQuery = "";
-	var selectedFields = options.selectedFields.replace(/\|/g, ",");
-
+	var selectedFields =  options.selectedFields ? options.selectedFields.replace(/\|/g, ",") : "";
 	return new Promise(function(resolve, reject){
 		if(!tableName){
 			return reject('must select a table.');
 		}
-		if(!selectedFields){
+		if(!selectedFields && !options.countOnly){
 			return reject('must provide at least one selected field.');
 		}
 		if(!_validateOptions(options)){
@@ -93,7 +94,7 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 			return reject('one or more of the following fields was found to be invalid');
 		}
 		for(var k in options){
-			if(k !== "selectedFields" && k !== "exactMatch"){
+			if(k !== "selectedFields" && k !== "exactMatch" && k !== "countOnly"){
 				conditions.push(_formatConditionWithValue(k, options[k]));
 			}
 			if(k==="exactMatch"){
@@ -108,7 +109,7 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 					subQuery += (conditions[i] + " AND ");
 				}
 			}
-			masterQuery = util.format(masterQuery, selectedFields, tableName, subQuery);
+			masterQuery = options.countOnly ? util.format(masterQuery, "COUNT(*) AS n", tableName, subQuery) : util.format(masterQuery, selectedFields, tableName, subQuery);
 			resolve(masterQuery);
 		} else {
 			defaultQuery = util.format(defaultQuery, selectedFields, tableName);
