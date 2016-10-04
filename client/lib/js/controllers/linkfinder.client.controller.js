@@ -1,8 +1,8 @@
 'use strict';
 angular.module('linkFinder').controller('GetLinksController', 
-	['$scope', '$rootScope', 'GetLinksService', 'DomainsAndFields', 'TableOptions', 'URLParamsService', 
+	['$scope', '$rootScope', 'GetLinksService', 'AuthorizationService', 'DomainsAndFields', 'TableOptions', 'URLParamsService', 
 	'$uibModal', 'ModalTemplate', 'LoginModalTemplate', '$localStorage', '$routeParams', '$timeout',
-	function($scope, $rootScope, GetLinksService, DomainsAndFields, TableOptions, URLParamsService, $uibModal, 
+	function($scope, $rootScope, GetLinksService, AuthorizationService, DomainsAndFields, TableOptions, URLParamsService, $uibModal, 
 		ModalTemplate, LoginModalTemplate, $localStorage, $routeParams, $timeout) {
 		$scope.fieldsCollapsed = false;
 		$scope.loading = false;
@@ -41,8 +41,9 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 		};
 		var offLoginSuccess = $rootScope.$on('login.success', function(e, data){
-			$scope.$storage.auth.token = data.token;
+			$scope.$storage.auth.accessToken = data.accessToken;
 			$scope.$storage.auth.username = data.username;
+			$scope.$storage.auth.refreshToken = data.refreshToken;
 			if(data.reattemptRequest){
 				$scope.getBacklinks();
 			} else {
@@ -71,7 +72,7 @@ angular.module('linkFinder').controller('GetLinksController',
 		    });
 		};
 		$timeout(function(){
-			if(!$scope.$storage.auth.token){
+			if(!$scope.$storage.auth.accessToken){
 				openLoginModal();
 			}
 		});
@@ -110,23 +111,42 @@ angular.module('linkFinder').controller('GetLinksController',
 			if(!preserveUrl){
 				URLParamsService.scopeToRouteParams($scope.criteria, $scope.enabledCriteria, $scope.selectedFields);
 			}
-			GetLinksService.getLinks($scope.criteria, $scope.enabledCriteria, $scope.selectedFields, $scope.$storage.auth.token)
-				.then(function(response){
-					$scope.loading = false;
-					// if(response){
-					if(response.data && response.data.length > 1000){
-						openDownloadModal(response.data);
-					} else if (response.data){
-						$scope.fieldsLastFetched = response.fieldsLastFetched;
-						$scope.data = response.data;
-					}
-				})
-				.catch(function(err){
-					$scope.loading = false;
-					if(err.status === 401){
-						openLoginModal("Please log in again.");
-					}
-				});
+			var refreshTokenRetry = true;
+			var makeGetLinksAttempt = function(){
+				GetLinksService.getLinks($scope.criteria, $scope.enabledCriteria, $scope.selectedFields, $scope.$storage.auth.accessToken, $scope.$storage.auth.username)
+					.then(function(response){
+						$scope.loading = false;
+						if(response.data && response.data.length > 1000){
+							openDownloadModal(response.data);
+						} else if (response.data){
+							$scope.fieldsLastFetched = response.fieldsLastFetched;
+							$scope.data = response.data;
+						}
+					})
+					.catch(function(err){
+						if(err.status === 401 && refreshTokenRetry === true){
+							refreshTokenRetry = false;
+							AuthorizationService.refreshToken($scope.$storage.auth.username, $scope.$storage.auth.refreshToken)
+								.then(function(response){
+									if(response.data){
+										$scope.$storage.auth.accessToken = response.data.accessToken;
+										makeGetLinksAttempt();
+										//TODO: fetch a new access token, make the getLinks request again (we'll have to wrap this invocation in a new function or pass in an argument),
+										//and make sure to store the new access token in localStorage
+									}
+								})
+								.catch(function(err){
+									openLoginModal("Please log in again.");
+								});
+						} else if (err.status === 401){
+							$scope.loading = false;
+							openLoginModal("Please log in again.");
+						} else {
+							$scope.loading = false;
+						}
+					});
+			};
+			makeGetLinksAttempt();
 		};
 		$scope.$on('$destroy', function(){
 			offLoginSuccess();

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('linkFinder').factory('GetLinksService', 
 	['$http', function($http){
-		var getLinks = function(criteria, enabledCriteria, selectedFields, token){
+		var getLinks = function(criteria, enabledCriteria, selectedFields, token, userId){
 			var options = {
 				tableName : criteria.tableName
 			};
@@ -29,7 +29,8 @@ angular.module('linkFinder').factory('GetLinksService',
 				url : '/links',
 				method : 'GET',
 				headers : {
-					"x-access-token" : token
+					"Authorization" : 'Bearer ' + token,
+					'x-userid' : userId
 				},
 				params : options
 			})

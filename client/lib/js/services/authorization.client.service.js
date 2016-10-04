@@ -7,5 +7,15 @@ angular.module('linkFinder').factory('AuthorizationService', ['$http', '$q', fun
 			password : password
 		});
 	};
+	AuthorizationService.refreshToken = function(username, token){
+		return $http({
+			method : 'POST',
+			url : '/refreshtoken',
+			headers : {
+				'Authorization' : 'Bearer ' + token,
+				'x-userid' : username
+			}
+		});
+	}
 	return AuthorizationService;
 }]);

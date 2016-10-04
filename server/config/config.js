@@ -18,7 +18,8 @@ var production = {
 		userNames : process.env.USERS ? process.env.USERS.split(",") : [],
 		salt : process.env.SALT,
 		password : process.env.PASSWORD,
-		secret : process.env.SECRET
+		secret : process.env.SECRET,
+		secret2 : process.env.SECRET_2
 	},
 	loggerConfig : {
 		name: "linkFinderLogger",

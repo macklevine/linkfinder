@@ -22,7 +22,6 @@ GetLinksResourceHandler.prototype.getHandlerForGetLinks = function getHandlerFor
 					res.status(200).send(rows);
 				})
 				.catch(function(err){
-					console.log(err);
 					res.status(500).send(err);
 				});
 		}

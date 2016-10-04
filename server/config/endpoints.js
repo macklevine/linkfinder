@@ -2,7 +2,8 @@
 
 var endpoints = {
 	"links" : "/links",
-	"login" : "/login"
+	"login" : "/login",
+	"refreshToken" : "/refreshToken"
 };
 
 module.exports = endpoints;

@@ -56,7 +56,6 @@ describe('GetLinksService', function(){
 		it("should reject any call that does not include a table name", function(done){
 			getLinksService.constructQuery(null, {"selectedFields":"source_url"})
 				.catch(function(err){
-					console.log(err);
 					expect(err).to.equal('must select a table.');
 					done();
 				});

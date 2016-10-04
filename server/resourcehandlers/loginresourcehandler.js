@@ -11,7 +11,8 @@ LoginResourceHandler.prototype.getHandlerForLogin = function getHandlerForLogin(
 				res.status(200).send({
 					success: true,
 					username : response.username,
-					token : response.token
+					accessToken : response.accessToken,
+					refreshToken : response.refreshToken
 				});
 			})
 			.catch(function(err){

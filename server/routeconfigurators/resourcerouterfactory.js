@@ -9,6 +9,7 @@ var ResourceRouterFactory = function ResourceRouterFactory(){};
 ResourceRouterFactory.prototype.addResourceRoutes = function addResourceRoutes(app){
 	app.get(endpoints['links'], [authService.validateRequestMiddleWare(), resourceHandlerFactory.getHandlerForResourceType('links')]);
 	app.post(endpoints['login'], resourceHandlerFactory.getHandlerForResourceType('login'));
+	app.post(endpoints['refreshToken'], resourceHandlerFactory.getHandlerForResourceType('refreshToken'));
 };
 
 module.exports = new ResourceRouterFactory();

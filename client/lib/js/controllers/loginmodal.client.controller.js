@@ -17,7 +17,8 @@ angular.module('linkFinder').controller('LoginModalController', [
 							reattemptRequest = true;
 						}
 						$rootScope.$emit('login.success', {
-							token : response.data.token,
+							accessToken : response.data.accessToken,
+							refreshToken : response.data.refreshToken,
 							username : response.data.username,
 							reattemptRequest : reattemptRequest
 						});
