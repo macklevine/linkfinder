@@ -97,7 +97,7 @@ GetLinksService.prototype.constructQuery = function constructQuery(tableName, op
 			if(k !== "selectedFields" && k !== "exactMatch" && k !== "countOnly"){
 				conditions.push(_formatConditionWithValue(k, options[k]));
 			}
-			if(k==="exactMatch"){
+			if(k==="exactMatch" && options[k]==='1'){
 				conditions.push(_formatConditionWithValue("target_url_exact_match", options.target_url));
 			}
 		}

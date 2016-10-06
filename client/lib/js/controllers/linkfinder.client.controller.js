@@ -118,6 +118,7 @@ angular.module('linkFinder').controller('GetLinksController',
 						$scope.loading = false;
 						if(response.data && response.data.length > 1000){
 							openDownloadModal(response.data);
+							$scope.data = [];
 						} else if (response.data){
 							$scope.fieldsLastFetched = response.fieldsLastFetched;
 							$scope.data = response.data;
