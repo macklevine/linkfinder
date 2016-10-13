@@ -1,37 +1,37 @@
 <div class="row input-options">
-	<div class="col-sm-3 col-xs-6">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div>
-			<label>Select a domain:</label>
+			<label class="as-blue">Select a domain:</label>
 		</div>
 		<div>
-			<select style="width:100%" class="form-control" name="selectDomainName" ng-model="criteria.tableName" required>
+			<select class="form-control input-field" name="selectDomainName" ng-model="criteria.tableName" required>
 				<option ng-selected="domain.tableName==criteria.tableName" ng-repeat="domain in domains" ng-value="domain.tableName">{{domain.label}}</option>
 			</select>
 		</div>
 	</div>
-	<div class="col-sm-3 col-xs-6">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div>
-			<label><input type="checkbox" ng-model="enabledCriteria.enableTrustFlow"></input> Trust Flow >=</label>
+			<label class="as-blue"><input type="checkbox" ng-model="enabledCriteria.enableTrustFlow"></input> Trust Flow >=</label>
 		</div>
 		<div>
-			<input ng-disabled="!enabledCriteria.enableTrustFlow" placeholder="input a number from 1-100..." style="width:100%" class="form-control" ng-model="criteria.trustFlow" type="text"></input>
+			<input ng-disabled="!enabledCriteria.enableTrustFlow" placeholder="input a number from 1-100..." style="width:100%" class="form-control input-field" ng-model="criteria.trustFlow" type="text"></input>
 		</div>
 	</div>
-	<div class="col-sm-3 col-xs-6">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div>
-			<label><input type="checkbox" ng-model="enabledCriteria.enableReferringUrl"></input> Source URL contains:</label>
+			<label class="as-blue"><input type="checkbox" ng-model="enabledCriteria.enableReferringUrl"></input> Source URL contains:</label>
 		</div>
-		<input ng-disabled="!enabledCriteria.enableReferringUrl" placeholder="e.g. http://spamsite.net" style="width:100%" class="form-control" ng-model="criteria.referringUrlContains" type="text"></input>
+		<input ng-disabled="!enabledCriteria.enableReferringUrl" placeholder="e.g. http://spamsite.net" style="width:100%" class="form-control input-field" ng-model="criteria.referringUrlContains" type="text"></input>
 	</div>
-	<div class="col-sm-3 col-xs-6">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div>
-			<label><input type="checkbox" ng-model="enabledCriteria.enableTargetUrl"></input> Target URL contains:</label>
+			<label class="as-blue"><input type="checkbox" ng-model="enabledCriteria.enableTargetUrl"></input> Target URL contains:</label>
 		</div>
 		<div>
-		<input ng-disabled="!enabledCriteria.enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control" ng-model="criteria.targetUrlContains" type="text"></input>
+		<input ng-disabled="!enabledCriteria.enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control input-field" ng-model="criteria.targetUrlContains" type="text"></input>
 		</div>
 		<div ng-if="enabledCriteria.enableTargetUrl">
-			<label>Exact Match? <input type="checkbox" ng-model="criteria.exactMatch"></input></label>
+			<label class-"as-blue">Exact Match? <input type="checkbox" ng-model="criteria.exactMatch"></input></label>
 		</div>
 	</div>
 </div>
@@ -50,7 +50,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 get-backlinks-button-wrapper">
-		<button ng-click="getBacklinks()" ng-disabled="!criteria.tableName||!$storage.auth.accessToken" class="btn btn-success get-backlinks-button">Get Backlinks</button>
+		<button ng-click="getBacklinks()" ng-disabled="!criteria.tableName||!$storage.auth.accessToken" class="btn get-backlinks-button">Get Backlinks</button>
 	</div>
 </div>
 <div class="row csv-wrapper" ng-if="data.length">

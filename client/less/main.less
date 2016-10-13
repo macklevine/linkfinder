@@ -8,10 +8,51 @@
 @screen-width-medium-min: (@screen-width-medium - 1);
 @screen-width-large-min: (@screen-width-large - 1);
 
+@as-white: #ffffff;
+@as-blue: #2759a4;
+@as-orange: #f26122;
+@as-grey: #f0f0f0;
+
+.as-bg-blue {
+	background-color: @as-blue;
+	border-color: @as-blue;
+}
+.as-blue {
+	color: @as-blue;
+}
+.as-bg-white {
+	background-color: @as-white;
+	border-color: @as-white;
+}
+.as-bg-grey {
+	background-color: @as-grey;
+	border-color: @as-white;
+}
+.as-orange {
+	color: @as-orange;
+}
+.as-bg-orange {
+	background-color: @as-orange;
+	border-color: @as-orange;
+}
+
+.link-hover {
+	color: @as-white !important;
+	&:hover {
+		color: @as-orange !important;
+	}
+}
+.navbar {
+	.active > a {
+		.as-bg-blue !important;
+	}
+}
 
 .get-backlinks-button-wrapper {
 	padding-top: 10px;
 	.get-backlinks-button {
+	    color: #fff;
+	    .as-bg-orange;
 		width: 30%;
 		@media(max-width: @screen-width-small-min){
 			width: 100%;
@@ -20,6 +61,11 @@
 }
 .csv-wrapper {
 	padding-top: 10px;
+}
+.input-field {
+	color: @as-orange;
+	width: 100%;
+	border-color: @as-blue;
 }
 .input-options {
 	.form-control[disabled="disabled"] {
@@ -31,8 +77,13 @@
 		}
 	}
 }
-.data-table-wrapper {
+#data-table-wrapper {
 	padding-top: 20px;
+	color: @as-blue;
+	.dt-header-cell-label {
+		color: @as-blue;
+	}
+	border-color: @as-blue !important;
 }
 .field-selector-wrapper {
 	#caret-i {
@@ -41,6 +92,7 @@
 		left: 10px;
 	}
 	.dropdown-button {
+		color: @as-blue;
 		width: 75%;
 		padding-top: 10px;
 		padding-bottom: 10px;
@@ -55,20 +107,30 @@
 		padding-right: 5px;
 	}
 	.checkbox-value {
+		color: @as-blue;
 		float: left;
 		@media(max-width: @screen-width-medium-min){
 			font-size: 12px;
 		}
 		.fetch-success {
 			font-weight: normal;
-			color : #5cb85c;
+			color: @as-orange;
 		}
 	}
 }
-.login-modal-body {
-	.login-success, .login-error {
-		line-height: .3;
-		position: relative;
-		top: 24px;
+.modal {
+	.modal-title {
+		.as-blue;
+	}
+	.login-modal-body {
+		.login-success, .login-error {
+			line-height: .3;
+			position: relative;
+			top: 24px;
+		}
+	}
+	.btn-cancel {
+		color: #fff;
+		background-color: @as-orange;
 	}
 }

@@ -8,7 +8,7 @@ angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
         '<div class="modal-body login-modal-body">' +
             '<div class="row">' +
                 '<div class="col-xs-6">' +
-                	'<label>  Username: </label><input class="form-control" ng-model="username" type="text"></input>' +
+                	'<label class="as-blue">  Username: </label><input class="form-control input-field" ng-model="username" type="text"></input>' +
                 '</div>' +
                 '<div class="col-xs-6">' +
                     '<div ng-show="showSuccessMessage" class="alert-success login-success" uib-alert>' +
@@ -24,7 +24,7 @@ angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
             '</div>' +
             '<div class="row" style="padding-top:10px">' +
                 '<div class="col-xs-6">' +
-                    '<label>  Password: </label><input class="form-control" ng-model="password" type="password"></input>' +
+                    '<label class="as-blue">  Password: </label><input class="form-control input-field" ng-model="password" type="password"></input>' +
                 '</div>' +
                 '<div class="col-xs-6">' +
                 '</div>' +
@@ -32,7 +32,7 @@ angular.module('linkFinder').factory('LoginModalTemplate', ['$templateCache',
         '</div>' +
         '<div class="modal-footer">' +
             '<button class="btn btn-success" type="button" ng-click="ok()">Login</button>' +
-            '<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
+            '<button class="btn btn-cancel" type="button" ng-click="cancel()">Cancel</button>' +
         '</div>';
 		$templateCache.put('loginModalTemplate.html', modalHtml);
 		return {};

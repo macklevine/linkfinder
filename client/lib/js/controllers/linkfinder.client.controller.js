@@ -51,7 +51,7 @@ angular.module('linkFinder').controller('GetLinksController',
 			}
 		});
 		var offOpenLoginModal = $rootScope.$on('login.openModal', function(){
-			openLoginModal();
+			openLoginModal(); //TODO: add a check to make sure modal does not open twice
 		});
 		var offLogout = $rootScope.$on('logout', function(){
 			$scope.$storage.auth = {};
