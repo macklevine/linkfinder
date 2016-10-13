@@ -19,13 +19,13 @@
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enabledCriteria.enableReferringUrl"></input> Source URL starts with:</label>
+			<label><input type="checkbox" ng-model="enabledCriteria.enableReferringUrl"></input> Source URL contains:</label>
 		</div>
 		<input ng-disabled="!enabledCriteria.enableReferringUrl" placeholder="e.g. http://spamsite.net" style="width:100%" class="form-control" ng-model="criteria.referringUrlContains" type="text"></input>
 	</div>
 	<div class="col-sm-3 col-xs-6">
 		<div>
-			<label><input type="checkbox" ng-model="enabledCriteria.enableTargetUrl"></input> Target URL starts with:</label>
+			<label><input type="checkbox" ng-model="enabledCriteria.enableTargetUrl"></input> Target URL contains:</label>
 		</div>
 		<div>
 		<input ng-disabled="!enabledCriteria.enableTargetUrl" placeholder="e.g. http://www.movoto.com/dallas-tx" style="width:100%" class="form-control" ng-model="criteria.targetUrlContains" type="text"></input>

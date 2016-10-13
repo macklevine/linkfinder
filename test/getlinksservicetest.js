@@ -31,7 +31,7 @@ describe('GetLinksService', function(){
 				expect(query).to.equal("SELECT target_url,source_url,source_crawl_date,source_first_found_date,ref_domain_topical_trust_flow_value " +
 											"FROM test_table " +
 											"WHERE ref_domain_topical_trust_flow_value >= 90 " +
-											"AND target_url LIKE '\"http://www.movoto.com/austin%';");
+											"AND target_url LIKE '%http://www.movoto.com/austin%';");
 				done();
 			});
 		});
