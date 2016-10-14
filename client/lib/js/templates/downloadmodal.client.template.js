@@ -11,7 +11,7 @@ angular.module('linkFinder').factory('ModalTemplate', ['$templateCache',
         '</div>' +
         '<div class="modal-footer">' +
             '<button class="btn btn-success" csv-header="csvHeaders" csv-column-order="csvColumns" type="button" ng-csv="data" ng-filename="backlinks.csv" ng-click="ok()">Download .csv</button>' +
-            '<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
+            '<button class="btn btn-cancel" type="button" ng-click="cancel()">Cancel</button>' +
         '</div>';
 		$templateCache.put('modalTemplate.html', modalHtml);
 		return {};

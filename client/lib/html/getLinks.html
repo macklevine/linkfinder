@@ -54,7 +54,7 @@
 	</div>
 </div>
 <div class="row csv-wrapper" ng-if="data.length">
-	<span><label>Backlinks Found: {{data.length}}</label></span>
+	<span><label class="as-blue">Backlinks Found: {{data.length}}</label></span>
 	<button csv-header="csvHeaders" csv-column-order="csvColumns" ng-csv="data" filename="results.csv" type="button">download .csv</button>
 </div>
 <div class="row" ng-show="loading">
